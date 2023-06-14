@@ -3,7 +3,7 @@ package Pack01.domain;
 
 public class User {
 
-    private Long user_id;
+    private Long userId;
 
     private String id;
 
@@ -15,8 +15,11 @@ public class User {
 
     private String role;
 
-    public User(Long user_id, String id, String password, String level, String name, String role) {
-        this.user_id = user_id;
+    public User() {
+    }
+
+    public User(Long userId, String id, String password, String level, String name, String role) {
+        this.userId = userId;
         this.id = id;
         this.password = password;
         this.level = level;
@@ -24,8 +27,8 @@ public class User {
         this.role = role;
     }
 
-    public Long getUser_id() {
-        return user_id;
+    public Long getUserId() {
+        return userId;
     }
 
     public String getId() {
@@ -46,5 +49,29 @@ public class User {
 
     public String getRole() {
         return role;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
