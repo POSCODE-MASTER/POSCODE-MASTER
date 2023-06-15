@@ -46,7 +46,7 @@ public class UserController {
         //세션에 로그인 회원 정보 보관
         session.setAttribute("loginUser", loginUser);
 
-        return "redirect:/main";  // 로그인 성공 시 /main으로 리다이렉트
+        return "redirect:/";  // 로그인 성공 시 /main으로 리다이렉트
     }
 
     /**
