@@ -35,6 +35,7 @@
 			<mvc:exclude-mapping path="/header"/>
 			<mvc:exclude-mapping path="/problemList"/>
 			<mvc:exclude-mapping path="/solve"/>
+			<mvc:exclude-mapping path="/test"/>
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
 			<mvc:exclude-mapping path="/plugin/**"/>

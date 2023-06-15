@@ -16,16 +16,38 @@ public class Problem {
 
     private LocalDateTime updateDate;
 
+    private Integer level;
+
     public Problem() {
     }
 
-    public Problem(Long problemId, Long userId, String title, String description, LocalDateTime writtenDate, LocalDateTime updateDate) {
+    //기본키 제외한 생성자
+    public Problem(Long userId, String title, String description, LocalDateTime writtenDate, LocalDateTime updateDate, Integer level) {
+        this.userId = userId;
+        this.title = title;
+        this.description = description;
+        this.writtenDate = writtenDate;
+        this.updateDate = updateDate;
+        this.level = level;
+    }
+
+    //전체 생성자
+    public Problem(Long problemId, Long userId, String title, String description, LocalDateTime writtenDate, LocalDateTime updateDate, Integer level) {
         this.problemId = problemId;
         this.userId = userId;
         this.title = title;
         this.description = description;
         this.writtenDate = writtenDate;
         this.updateDate = updateDate;
+        this.level = level;
+    }
+
+    //업데이트용 생성자
+    public Problem(String title, String description, LocalDateTime updateDate, Integer level) {
+        this.title = title;
+        this.description = description;
+        this.updateDate = updateDate;
+        this.level = level;
     }
 
     public Long getProblemId() {
@@ -74,5 +96,13 @@ public class Problem {
 
     public void setUpdateDate(LocalDateTime updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public Integer getLevel() {
+        return level;
+    }
+
+    public void setLevel(Integer level) {
+        this.level = level;
     }
 }
