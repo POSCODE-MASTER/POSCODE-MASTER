@@ -4,11 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <head>
-	<title>메인 페이지</title>
+	<title>Index</title>
 </head>
 
 <body>
+<jsp:include page="/header"/>
 <%=new Date()%>
 <h2>Hello World</h2>
-<a href="t1">링크1</a><br/>
+
 </body> 

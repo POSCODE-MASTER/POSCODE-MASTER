@@ -13,4 +13,14 @@ public class Tiger {
 		System.out.println("func01 call");
 		return "TigerView";//클래스가 타이거라서?
 	}
+
+	@RequestMapping("/login")
+	public String login(){
+		return "login";
+	}
+
+	@RequestMapping("header")
+	public String header(){
+		return "header";
+	}
 }

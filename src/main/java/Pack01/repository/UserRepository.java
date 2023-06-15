@@ -49,6 +49,7 @@ public class UserRepository {
 
         try {
             User user = jdbcTemplate.queryForObject(sql, userRowMapper(), id);
+
             return Optional.of(user);
         } catch (EmptyResultDataAccessException e) {
             return Optional.empty();
@@ -59,7 +60,7 @@ public class UserRepository {
     private RowMapper<User> userRowMapper() {
         return (rs, rowNum) -> {
             User user = new User();
-            user.setUserId(rs.getLong("id"));
+            user.setUserId(rs.getLong("users_id"));
             user.setId(rs.getString("id"));
             user.setPassword(rs.getString("password"));
             user.setLevel(rs.getString("level"));
