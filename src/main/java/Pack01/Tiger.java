@@ -14,10 +14,10 @@ public class Tiger {
 		return "TigerView";//클래스가 타이거라서?
 	}
 
-	@RequestMapping("/login")
-	public String login(){
-		return "login";
-	}
+//	@RequestMapping("/login")
+//	public String login(){
+//		return "login";
+//	}
 
 	@RequestMapping("header")
 	public String header(){
