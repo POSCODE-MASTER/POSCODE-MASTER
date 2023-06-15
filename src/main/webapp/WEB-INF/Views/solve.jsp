@@ -51,6 +51,11 @@
             margin-bottom: 15px;
             color:rgba(255, 255, 255, 0.8);
         }
+        .solve-output{
+            font-size: 18px;
+            margin-bottom: 15px;
+            color:rgba(255, 255, 255, 0.8);
+        }
         .solve-ex-box{
             height: 40px;
             width: 90%;
@@ -128,11 +133,12 @@
     </div>
     <div class="solve-side-container">
         <div id="monaco" class="monaco-editor-css"></div>
-        <div class="solve-submit-btn">실행하기</div>
+        <div class="solve-submit-btn" onclick="save()">실행하기</div>
+        <div class="solve-submit-btn" onclick="getOutput()">결과보기</div>
         <div class="solve-hr"></div>
         <div>
             <div class="solve-title">실행 결과</div>
-            <div class="solve-text">실행 결과가 여기에 표시됩니다.</div>
+            <div class="solve-output">실행 결과가 여기에 표시됩니다.</div>
         </div>
     </div>
 </div>
@@ -152,8 +158,6 @@
             fontSize: 15,
             minimap: {enabled:false},
             value: [
-                '//Monaco 코드 편집기',
-                '//Java',
                 'class HelloWorld {',
                 'public static void main (String args[]) {',
                 'System.out.println("Hello World");',
@@ -161,6 +165,36 @@
             ].join('\n')
         });
     });
+
+    function save(){
+        var value = window.editor.getValue();
+        console.log(value);
+        var xhr = new XMLHttpRequest();
+
+        // Configure the request
+        xhr.open("POST", "/solveProblem", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        // Handle the response
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // Request was successful
+                console.log(xhr.responseText);
+            } else {
+                // Request encountered an error
+                console.error(xhr.statusText);
+            }
+        };
+        // Send the request
+        xhr.send(JSON.stringify({ value: value }));
+    }
+
+    function getOutput(){
+        var output = "<%= request.getAttribute("result") %>";
+        var solveTextDiv = document.querySelector(".solve-output");
+
+        solveTextDiv.innerHTML = output;
+    }
 </script>
 </body>
 </html>
