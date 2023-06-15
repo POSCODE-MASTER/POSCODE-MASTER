@@ -21,15 +21,16 @@ public class UserService {
     /**
      * @return null이면 로그인 실패
      */
-//    public User login(String loginId, String password) {
-//        User findMemberOptional = userRepository.findById(loginId);
-//        User member = findMemberOptional.get();
-//        if(member.getPassword().equals(password)) {
-//            return member;
-//        } else {
-//            return null;
-//        }
-//    }
+    public User login(String loginId, String password) {
+        Optional<User> userOptional = userRepository.findById(loginId);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getPassword().equals(password)) {
+                return user;
+            }
+        }
+        return null;
+    }
 
     // 회원가입
     public void save(User user) {

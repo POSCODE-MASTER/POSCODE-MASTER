@@ -1,10 +1,8 @@
 package Pack01.controller;
 
-import Pack01.auth.LoginForm;
 import Pack01.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import Pack01.service.UserService;
 
@@ -21,30 +19,43 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * 로그인 (화면 이동)
+     */
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
 
     /**
-     * 로그인
+     * 로그인 (처리)
      */
-//    @PostMapping("/login")
-//    public String loginV4(@ModelAttribute LoginForm form,
-//                          @RequestParam(defaultValue = "/") String redirectURL,
-//                          HttpServletRequest request) {
-//
-//        User loginMember = userService.login(form.getLoginId(), form.getPassword());
-//
-//        if(loginMember == null) {
-//            bindingResult.reject("loginFail", "아이디 또는 비밀번호가 맞지 않습니다.");     //글로벌 오류 생성
-//            return "login/loginForm";
-//        }
-//
-//        //로그인 성공 처리
-//        //세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
-//        HttpSession session = request.getSession();
-//        //세션에 로그인 회원 정보 보관
-//        session.setAttribute(SessionConst.LOGIN_MEMBER, loginMember);
-//
-//        return "redirect:" + redirectURL;
-//    }
+    @PostMapping("/login")
+    public String loginOk(LoginForm form, HttpServletRequest request) {
+
+        User loginUser = userService.login(form.getId(), form.getPassword());
+
+        if(loginUser == null) {
+            return "redirect:/login";  // 로그인 실패 시 /login으로 리다이렉트
+        }
+
+        //로그인 성공 처리
+        //getSession(): 세션이 있으면 있는 세션 반환, 없으면 신규 세션을 생성
+        HttpSession session = request.getSession();
+        //세션에 로그인 회원 정보 보관
+        session.setAttribute("loginUser", loginUser);
+
+        return "redirect:/main";  // 로그인 성공 시 /main으로 리다이렉트
+    }
+
+    /**
+     * 메인 (화면 이동)
+     */
+    @GetMapping("/main")
+    public String main() {
+        return "main";
+    }
 
 
     /**
