@@ -23,4 +23,10 @@ public class Tiger {
 	public String header(){
 		return "header";
 	}
+
+	@RequestMapping("/")
+	public String index(){return "index";}
+
+	@RequestMapping("/problemList")
+	public String problemList(){return "problemList";}
 }
