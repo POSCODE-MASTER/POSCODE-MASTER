@@ -24,7 +24,7 @@ public class UserController {
      */
     @GetMapping("/login")
     public String login() {
-        return "loginTest";
+        return "login";
     }
 
 
@@ -49,6 +49,9 @@ public class UserController {
         return "redirect:/main";  // 로그인 성공 시 /main으로 리다이렉트
     }
 
+    /**
+     * 메인 (화면 이동)
+     */
     @GetMapping("/main")
     public String main() {
         return "main";
