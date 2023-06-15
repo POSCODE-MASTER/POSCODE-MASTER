@@ -96,6 +96,9 @@
             <div class="solve-text">출력</div>
             <div class="solve-ex-box">HelloWorld!</div>
         </div>
+        <div>
+            <a href="/problemBoard"><div class="problem-board">질문게시판</div></a>
+        </div>
     </div>
     <div class="solve-side-container">
         <div id="monaco" class="monaco-editor-css"></div>
