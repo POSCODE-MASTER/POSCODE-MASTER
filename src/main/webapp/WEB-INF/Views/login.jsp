@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,6 +8,8 @@
             width: 100%;
             height: 100%;
             background-color: #06f;
+            margin:0;
+            padding:0;
         }
         .container{
             width: 100%;
@@ -114,6 +117,11 @@
             margin-top: 20px;
             margin-bottom: 15px;
         }
+        .header-hr{
+            height: 1.2px;
+            background-color: white;
+            width: 100%;
+        }
     </style>
     <script>
         function changeTab(event, tabId) {
@@ -140,32 +148,41 @@
     </script>
 </head>
 <body class="login">
-    <jsp:include page="/header"/>
-    <div class="container">
-        <div class="login-content">
-            <div class="login-text">반가워요, 개발자의 성장을 돕는</br>POSCODE 입니다.</div>
-            <div class="tabs">
-                <div class="tab tab-active" onclick="changeTab(event, 'tab1')">로그인</div>
-                <div class="tab" onclick="changeTab(event, 'tab2')">회원가입</div>
-            </div>
-
-            <form id="tab1" class="tab-content show" action="login" method="POST">
-                <div class="tab-text">이메일</div>
-                <input type="text" id="id" name="id"/>
-                <div class="tab-text">비밀번호</div>
-                <input type="password" id="password" name="password"/>
-                <input class="login-btn" type="submit" value="로그인">
-<%--                <div class="login-btn">로그인</div>--%>
-            </form>
-
-            <form id="tab2" class="tab-content">
-                <div class="tab-text">이메일</div>
-                <input type="text"/>
-                <div class="tab-text">비밀번호</div>
-                <input type="password"/>
-                <div class="login-btn">회원가입</div>
-            </form>
+<jsp:include page="/header"/>
+<div class="header-hr"></div>
+<div class="container">
+    <div class="login-content">
+        <div class="login-text">반가워요, 개발자의 성장을 돕는</br>POSCODE 입니다.</div>
+        <div class="tabs">
+            <div class="tab tab-active" onclick="changeTab(event, 'tab1')">로그인</div>
+            <div class="tab" onclick="changeTab(event, 'tab2')">회원가입</div>
         </div>
+
+        <form id="tab1" class="tab-content show" action="login" method="POST">
+            <div class="tab-text">이메일</div>
+            <input type="text" id="id" name="id"/>
+            <div class="tab-text">비밀번호</div>
+            <input type="password" id="password" name="password"/>
+            <input class="login-btn" type="submit" value="로그인">
+            <%--                <div class="login-btn">로그인</div>--%>
+        </form>
+
+        <form id="tab2" class="tab-content" action="register" method="POST">
+            <div class="tab-text">이메일</div>
+            <input type="text" name="id" required/>
+            <div class="tab-text">비밀번호</div>
+            <input type="password"  name="password" required/>
+
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <input type="hidden" id="role" name="role" value="user">
+            <input type="hidden" id="level" name="level" value="1">
+
+            <button type="submit" class="login-btn" onclick="this.disabled=true;this.value='전송중';this.form.submit()">회원가입</button>
+        </form>
     </div>
+</div>
 </body>
 </html>
