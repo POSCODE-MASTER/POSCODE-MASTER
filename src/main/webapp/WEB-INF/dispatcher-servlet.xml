@@ -33,6 +33,7 @@
 			<mvc:exclude-mapping path="/logout"/>
 			<mvc:exclude-mapping path="/register"/>
 			<mvc:exclude-mapping path="/header"/>
+			<mvc:exclude-mapping path="/solve"/>
 			<mvc:exclude-mapping path="/problemList"/>
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>

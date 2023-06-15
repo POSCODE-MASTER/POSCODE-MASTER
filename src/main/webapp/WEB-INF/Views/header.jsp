@@ -56,7 +56,11 @@
         body.login .header .logo,
         body.login .header .header-btns,
         body.login .header .header-btn,
-        body.login .header .header-btns a {
+        body.login .header .header-btns a,
+        body.solve .header .logo,
+        body.solve .header .header-btns,
+        body.solve .header .header-btn,
+        body.solve .header .header-btns a{
             color: white;
         }
     </style>

@@ -29,4 +29,7 @@ public class Tiger {
 
 	@RequestMapping("/problemList")
 	public String problemList(){return "problemList";}
+
+	@RequestMapping("/solve")
+	public String solve(){return "solve";}
 }
