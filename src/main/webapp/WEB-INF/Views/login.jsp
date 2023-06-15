@@ -7,6 +7,8 @@
             width: 100%;
             height: 100%;
             background-color: #06f;
+            margin:0;
+            padding:0;
         }
         .container{
             width: 100%;
@@ -114,6 +116,11 @@
             margin-top: 20px;
             margin-bottom: 15px;
         }
+        .header-hr{
+            height: 1.2px;
+            background-color: white;
+            width: 100%;
+        }
     </style>
     <script>
         function changeTab(event, tabId) {
@@ -141,6 +148,7 @@
 </head>
 <body class="login">
     <jsp:include page="/header"/>
+    <div class="header-hr"></div>
     <div class="container">
         <div class="login-content">
             <div class="login-text">반가워요, 개발자의 성장을 돕는</br>POSCODE 입니다.</div>

@@ -60,8 +60,7 @@
         body.solve .header .logo,
         body.solve .header .header-btns,
         body.solve .header .header-btn,
-        body.solve .header .header-btns a
-        {
+        body.solve .header .header-btns a{
             color: white;
         }
     </style>

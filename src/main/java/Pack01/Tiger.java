@@ -33,4 +33,11 @@ public class Tiger {
 	@RequestMapping("/solve")
 	public String solve(){return "solve";}
 
+
+	@RequestMapping("/problemBoard")
+	public String problemBoard(){return "problemBoard";}
+
+	@RequestMapping("/problemBoardList")
+	public String problemBoardList(){return "problemBoardList";}
+
 }
