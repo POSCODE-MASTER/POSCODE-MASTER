@@ -27,7 +27,7 @@ public class UserRepository {
         String sql = "INSERT INTO user (id, password, level, name, role) VALUES (?, ?, ?, ?, ?)";
         KeyHolder keyHolder = new GeneratedKeyHolder();
         jdbcTemplate.update(connection -> {
-            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"id"});
+            PreparedStatement ps = connection.prepareStatement(sql, new String[]{"user_id"});
             ps.setString(1, user.getId());
             ps.setString(2, user.getPassword());
             ps.setString(3, user.getLevel());

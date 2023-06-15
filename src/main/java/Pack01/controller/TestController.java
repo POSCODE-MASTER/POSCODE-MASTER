@@ -2,11 +2,14 @@ package Pack01.controller;
 
 import Pack01.domain.Problem;
 import Pack01.domain.Testcase;
+import Pack01.domain.Trial;
 import Pack01.domain.User;
 import Pack01.repository.ProblemRepository;
 import Pack01.repository.TestcaseRepository;
+import Pack01.repository.TrialRepository;
 import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
+import Pack01.service.TrialService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -23,18 +33,23 @@ import java.util.List;
 @Controller
 public class TestController {
 
-    private final ProblemService problemService;
-    private final TestCaseService testCaseService;
-    private final ProblemRepository problemRepository;
-    private final TestcaseRepository testcaseRepository;
+    @Autowired
+    private ProblemService problemService;
 
     @Autowired
-    public TestController(ProblemService problemService, TestCaseService testCaseService, ProblemRepository problemRepository, TestcaseRepository testcaseRepository) {
-        this.problemService = problemService;
-        this.testCaseService = testCaseService;
-        this.problemRepository = problemRepository;
-        this.testcaseRepository = testcaseRepository;
-    }
+    private TestCaseService testCaseService;
+    @Autowired
+    private ProblemRepository problemRepository;
+
+    @Autowired
+    private TestcaseRepository testcaseRepository;
+
+    @Autowired
+    private TrialService trialService;
+
+    @Autowired
+    private TrialRepository trialRepository;
+
 
 
     // 전체 조회 (페이징 + level 필터)
@@ -150,5 +165,89 @@ public class TestController {
 
         return "test";
     }
+
+
+
+    // trial 저장
+    @GetMapping("/test8")
+    public String test8() {
+
+        Long testcaseId = 1L;
+
+
+        LocalDateTime now = LocalDateTime.now();
+        Trial trial = new Trial(testcaseId, 2L, true, 1L, 3.1, "{\"updateInput\" : \"updateInput\"}", "1", now);
+
+        trialService.save(trial);
+
+        System.out.println(trial.getTrialId());
+        System.out.println(trial.getOutput());
+
+        return "test";
+    }
+
+
+
+    // API 테스트
+    @GetMapping("/test9")
+    public String test9(){
+        String clientId = "106ecb6fd86bae734a18f6ae09c7e27b"; //Replace with your client ID
+        String clientSecret = "6dcd21de8f8b43d82a4119a10e96b8462032b0aa77fb6254bbcd20a887e9d029"; //Replace with your client Secret
+
+        String script = "public class Main{\n" +
+                "\tpublic static void main(String[] args) {\n" +
+                "\t\tSystem.out.println(\"안녕\");\n" +
+                "\t}\n" +
+                "}";
+
+        String language = "java";
+        String versionIndex = "3";
+
+        try {
+            URL url = new URL("https://api.jdoodle.com/v1/execute");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoOutput(true);
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            String input = "{\"clientId\": \"" + clientId + "\",\"clientSecret\":\"" + clientSecret + "\",\"script\":\"" + script +
+                    "\",\"language\":\"" + language + "\",\"versionIndex\":\"" + versionIndex + "\"} ";
+
+            System.out.println(input);
+
+            OutputStream outputStream = connection.getOutputStream();
+            outputStream.write(input.getBytes());
+            outputStream.flush();
+
+            if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                throw new RuntimeException("Please check your inputs : HTTP error code : "+ connection.getResponseCode());
+            }
+
+            BufferedReader bufferedReader;
+            bufferedReader = new BufferedReader(new InputStreamReader(
+                    (connection.getInputStream())));
+
+            String output;
+            System.out.println("Output from JDoodle .... \n");
+            while ((output = bufferedReader.readLine()) != null) {
+                System.out.println(output);
+            }
+
+            connection.disconnect();
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return "test";
+    }
+
+
+
+
+
+
 
 }
