@@ -17,19 +17,33 @@
         }
         .logo{
             font-size: 25px;
+            color: black;
+        }
+        .header-menu{
+            display: flex;
+            flex-direction: row;
         }
         .header-btns{
             display: flex;
             flex-direction: row;
             justify-content: space-between;
             width: 200px;
+            color:black;
         }
         .header-btns div{
-            width: 65px;
             font-size: 15px;
+            margin-top:5px;
+        }
+        .header-btn{
+            font-size: 15px;
+            font-weight: bold;
+            color:black;
+            margin-top:5px;
+            margin-left: 25px;
         }
         a{
             text-decoration: none;
+            color:black;
         }
         a:hover{
             cursor: pointer;
@@ -37,21 +51,24 @@
         }
         a:visited{
             text-decoration: none;
+            color:black;
         }
-        a:focus{
-            text-decoration: none;
-        }
-        a:active{
-            text-decoration: none;
+        body.login .header .logo,
+        body.login .header .header-btns,
+        body.login .header .header-btn,
+        body.login .header .header-btns a {
+            color: white;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="logo">POSCODE</div>
+        <div class="header-menu">
+            <a href="/"><div class="logo">POSCODE</div></a>
+            <a href="/problemList"><div class="header-btn">문제풀기</div></a>
+        </div>
         <div class="header-btns">
-            <a href="/login"><div id="loginBtn">로그인</div></a>
-            <div id="joinBtn">회원가입</div>
+            <a href="/login"><div id="loginBtn">로그인|회원가입</div></a>
             <div id="myPageBtn">마이페이지</div>
         </div>
     </div>
