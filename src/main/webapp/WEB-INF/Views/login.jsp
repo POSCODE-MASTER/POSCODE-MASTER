@@ -147,33 +147,33 @@
     </script>
 </head>
 <body class="login">
-    <jsp:include page="/header"/>
-    <div class="header-hr"></div>
-    <div class="container">
-        <div class="login-content">
-            <div class="login-text">반가워요, 개발자의 성장을 돕는</br>POSCODE 입니다.</div>
-            <div class="tabs">
-                <div class="tab tab-active" onclick="changeTab(event, 'tab1')">로그인</div>
-                <div class="tab" onclick="changeTab(event, 'tab2')">회원가입</div>
-            </div>
-
-            <form id="tab1" class="tab-content show" action="login" method="POST">
-                <div class="tab-text">이메일</div>
-                <input type="text" id="id" name="id"/>
-                <div class="tab-text">비밀번호</div>
-                <input type="password" id="password" name="password"/>
-                <input class="login-btn" type="submit" value="로그인">
-<%--                <div class="login-btn">로그인</div>--%>
-            </form>
-
-            <form id="tab2" class="tab-content">
-                <div class="tab-text">이메일</div>
-                <input type="text"/>
-                <div class="tab-text">비밀번호</div>
-                <input type="password"/>
-                <div class="login-btn">회원가입</div>
-            </form>
+<jsp:include page="/header"/>
+<div class="header-hr"></div>
+<div class="container">
+    <div class="login-content">
+        <div class="login-text">반가워요, 개발자의 성장을 돕는</br>POSCODE 입니다.</div>
+        <div class="tabs">
+            <div class="tab tab-active" onclick="changeTab(event, 'tab1')">로그인</div>
+            <div class="tab" onclick="changeTab(event, 'tab2')">회원가입</div>
         </div>
+
+        <form id="tab1" class="tab-content show" action="login" method="POST">
+            <div class="tab-text">이메일</div>
+            <input type="text" id="id" name="id"/>
+            <div class="tab-text">비밀번호</div>
+            <input type="password" id="password" name="password"/>
+            <input class="login-btn" type="submit" value="로그인">
+            <%--                <div class="login-btn">로그인</div>--%>
+        </form>
+
+        <form id="tab2" class="tab-content">
+            <div class="tab-text">이메일</div>
+            <input type="text"/>
+            <div class="tab-text">비밀번호</div>
+            <input type="password"/>
+            <div class="login-btn">회원가입</div>
+        </form>
     </div>
+</div>
 </body>
 </html>

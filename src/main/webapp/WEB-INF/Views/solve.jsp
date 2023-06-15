@@ -69,6 +69,32 @@
             box-sizing: border-box;
             margin-bottom: 20px;
         }
+        .solve-board-btn{
+            margin-top:10px;
+            margin-bottom: 10px;
+            width: 85px;
+            height: 30px;
+            background-color: #222b3c;
+            padding-top: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .solve-submit-btn{
+            margin-top:10px;
+            margin-bottom: 10px;
+            width: 70px;
+            height: 25px;
+            background-color: #cccccc;
+            padding-top: 8px;
+            font-size: 15px;
+            font-weight: bold;
+            color: black;
+            border-radius: 10px;
+            text-align: center;
+        }
     </style>
 </head>
 <body class="solve">
@@ -97,11 +123,12 @@
             <div class="solve-ex-box">HelloWorld!</div>
         </div>
         <div>
-            <a href="/problemBoard"><div class="problem-board">질문게시판</div></a>
+            <a href="/problemBoardList"><div class="solve-board-btn">질문게시판</div></a>
         </div>
     </div>
     <div class="solve-side-container">
         <div id="monaco" class="monaco-editor-css"></div>
+        <div class="solve-submit-btn">실행하기</div>
         <div class="solve-hr"></div>
         <div>
             <div class="solve-title">실행 결과</div>
