@@ -40,6 +40,9 @@ public class Tiger {
 	@RequestMapping("/problemBoardList")
 	public String problemBoardList(){return "problemBoardList";}
 
+	@RequestMapping("/problemBoardCreate")
+	public String problemBoardCreate(){return "problemBoardCreate";}
+
 	@RequestMapping("/ranking")
 	public String ranking(){return "ranking";}
 

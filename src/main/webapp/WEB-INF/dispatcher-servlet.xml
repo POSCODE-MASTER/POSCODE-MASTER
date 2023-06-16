@@ -36,6 +36,7 @@
 			<mvc:exclude-mapping path="/solve"/>
 			<mvc:exclude-mapping path="/problemBoard"/>
 			<mvc:exclude-mapping path="/problemBoardList"/>
+			<mvc:exclude-mapping path="/problemBoardCreate"/>
 			<mvc:exclude-mapping path="/problemList"/>
 			<mvc:exclude-mapping path="/solve"/>
 			<mvc:exclude-mapping path="/solveProblem"/>
