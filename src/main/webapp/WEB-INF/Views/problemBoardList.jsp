@@ -62,7 +62,7 @@
 <div class="header-hr"></div>
 <div class="board-container">
   <div class="board-title-box">
-    <div class="board-title">10512번 문제 게시판</div>
+    <div class="board-title">${problemId}번 문제 게시판</div>
     <a href="/problemBoardCreate"><div class="board-create">질문하기</div></a>
   </div>
   <div>
