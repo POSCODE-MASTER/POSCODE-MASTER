@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -88,11 +89,15 @@
             <div class="my-page-info">
                 <div class="info-line">
                     <div>email</div>
-                    <div>rooproop1111@naver.com</div>
+                    <div>${user.id}</div>
                 </div>
                 <div class="info-line">
                     <div>name</div>
-                    <div>yujin</div>
+                    <div>${user.name}</div>
+                </div>
+                <div class="info-line">
+                    <div>level</div>
+                    <div>${user.level}</div>
                 </div>
                 <div class="info-line">
                     <div>등수</div>
@@ -102,8 +107,11 @@
             <div class="my-page-solved">
                 <div class="solved-title">맞은 문제</div>
                 <div class="solved-box">
-                    <div>1321</div>
-                    <div>11</div>
+                    <c:forEach items="${solvedProblems}" var="problem">
+                        <a href="/solve?problemId=${problem.problemId}">
+                            <div>${problem.problemId.toString()}</div>
+                        </a>
+                    </c:forEach>
                 </div>
             </div>
         </div>
