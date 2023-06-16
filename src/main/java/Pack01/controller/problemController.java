@@ -20,7 +20,13 @@ public class problemController {
         String value = request.get("value");
         System.out.println("SOLVEProblem URLPOST");
         System.out.println(value);
-        String result = JDoodle.apiCall("1", value, "java", "3");
+        String processedValue = value.replaceAll("//.*", "")
+                                     .replaceAll("/\\*.*?\\*/", "")
+                                    .replace("\n","")
+                                    .replace("\\","\\\\")
+                                    .replace("\"","\\\"");
+
+        String result = JDoodle.apiCall("1", processedValue, "java", "3");
         System.out.println("SOLVEProblem URL");
         System.out.println(result);
 
@@ -32,15 +38,4 @@ public class problemController {
         return ResponseEntity.ok(jobj);
     }
 
-    @GetMapping("/solveProblem")
-    public String solveGet(Map<String, String> request, Model model){
-        String value = request.get("value");
-        System.out.println(value);
-        String result = JDoodle.apiCall("1", value, "java", "3");
-        System.out.println("SOLVEProblem URL GET");
-        System.out.println(result);
-        model.addAttribute("result", result);
-
-        return "solve";
-    }
 }

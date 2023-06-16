@@ -21,7 +21,7 @@ public class LoginCheckInterceptor implements HandlerInterceptor {
             System.out.println("미인증 사용자 요청");
             //로그인으로 redirect
             response.sendRedirect("/login");
-            return true;
+            return false;
         }
 
         return true;
