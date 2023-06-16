@@ -5,6 +5,8 @@ import Pack01.domain.Problem;
 import Pack01.repository.ProblemRepository;
 import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ public class problemController {
     private ProblemRepository problemRepository;
 
     @PostMapping("/solveProblem")
-    public ResponseEntity<String> solve(@RequestBody Map<String, String> request) {
+    public ResponseEntity<JsonObject> solve(@RequestBody Map<String, String> request) {
         String value = request.get("value");
         System.out.println("SOLVEProblem URLPOST");
         System.out.println(value);
@@ -30,9 +32,10 @@ public class problemController {
 
         // Create a JSON response using Gson
         Gson gson = new Gson();
-        String jsonResponse = gson.toJson(result);
-
-        return ResponseEntity.ok(jsonResponse);
+        JsonParser parser = new JsonParser();
+        JsonObject jobj = (JsonObject)parser.parse(result);
+        System.out.println(jobj);
+        return ResponseEntity.ok(jobj);
     }
 
     @GetMapping("/solveProblem")
