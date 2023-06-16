@@ -134,6 +134,11 @@
             level = selectedLevel;
             applyFilter(${page}, level);
         }
+
+        function toSolve(problemId){
+            var url = '/solve?problemId=' + problemId;
+            window.location.href = url;
+        }
     </script>
 </head>
 <body>
@@ -162,7 +167,7 @@
         <div class="problem-page">
             <div class="problem-list-box">
                 <c:forEach items="${problemList}" var="problem">
-                    <div class="problem-box">
+                    <div class="problem-box" onclick="toSolve(${problem.problemId})">
                         <div class="pr-hr"></div>
                         <div class="pr-Title">${problem.title}</div>
                         <div class="pr-sub">난이도${problem.level} | 21071명 완료</div>
