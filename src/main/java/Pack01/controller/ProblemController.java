@@ -30,9 +30,13 @@ public class ProblemController {
     @PostMapping("/solveProblem")
     public ResponseEntity<JsonObject> solve(@RequestBody Map<String, String> request) {
         String value = request.get("value");
-        System.out.println("SOLVEProblem URLPOST");
-        System.out.println(value);
-        String result = JDoodle.apiCall("1", value, "java", "3");
+        String processedValue = value.replaceAll("//.*", "")
+                .replaceAll("/\\*.*?\\*/", "")
+                .replace("\n","")
+                .replace("\\","\\\\")
+                .replace("\"","\\\"");
+
+        String result = JDoodle.apiCall("1", processedValue, "java", "3");
         System.out.println("SOLVEProblem URL");
         System.out.println(result);
 
