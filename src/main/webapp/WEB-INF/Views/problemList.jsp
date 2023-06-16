@@ -157,12 +157,6 @@
                 <div onclick="selectLevel('4')">level 4</div>
                 <div onclick="selectLevel('5')">level 5</div>
             </div>
-            <div onclick="toggleFilterList('language')">프로그래밍 언어</div>
-            <div id="language-list" class="filter-list">
-                <div>Java</div>
-                <div>C++</div>
-                <div>Python</div>
-            </div>
         </div>
         <div class="problem-page">
             <div class="problem-list-box">
@@ -170,8 +164,7 @@
                     <div class="problem-box" onclick="toSolve(${problem.problemId})">
                         <div class="pr-hr"></div>
                         <div class="pr-Title">${problem.title}</div>
-                        <div class="pr-sub">난이도${problem.level} | 21071명 완료</div>
-                        <div class="pr-lang">Java Python</div>
+                        <div class="pr-sub">난이도${problem.level}</div>
                     </div>
                 </c:forEach>
             </div>
