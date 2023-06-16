@@ -48,10 +48,15 @@ public class ProblemController {
 
     @GetMapping("/problemBoardList")
     public String problemBoardList(
-                              @RequestParam(name = "problemId", defaultValue = "1") Long problemId,
+                              @RequestParam(name = "problemId") Long problemId,
                               Model model){
         List<Post> problemBoardList = postRepository.findByProblemId(problemId);
+        model.addAttribute("problemId", problemId);
         model.addAttribute("problemBoardList", problemBoardList);
+        for (Post post : problemBoardList) {
+            System.out.println(post.getPost_id());
+            System.out.println(post.getTitle());
+        }
         return "problemBoardList";
     }
 
