@@ -40,6 +40,7 @@
 			<mvc:exclude-mapping path="/solve"/>
 			<mvc:exclude-mapping path="/problemCreate"/>
 			<mvc:exclude-mapping path="/ranking"/>
+			<mvc:exclude-mapping path="/myPage"/>
 			<mvc:exclude-mapping path="/test"/>
 			<mvc:exclude-mapping path="/fonts/**"/>
 			<mvc:exclude-mapping path="/css/**"/>

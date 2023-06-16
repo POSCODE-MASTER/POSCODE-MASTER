@@ -27,7 +27,7 @@
             display: flex;
             flex-direction: row;
             justify-content: space-between;
-            width: 200px;
+            width: 130px;
             color:black;
         }
         .header-btns div{
@@ -74,8 +74,8 @@
             <a href="/problemCreate"><div class="header-btn">문제생성</div></a>
         </div>
         <div class="header-btns">
-            <a href="/login"><div id="loginBtn">로그인|회원가입</div></a>
-            <div id="myPageBtn">마이페이지</div>
+            <a href="/login"><div id="loginBtn">로그인</div></a>
+            <a href="/myPage"><div id="myPageBtn">마이페이지</div></a>
         </div>
     </div>
 </body>
