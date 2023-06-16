@@ -1,7 +1,9 @@
 package Pack01.repository;
 
 import Pack01.domain.Problem;
+import Pack01.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -12,6 +14,7 @@ import java.sql.PreparedStatement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProblemRepository {
@@ -61,6 +64,16 @@ public class ProblemRepository {
     public void updateProblem(Long updateProblemId, Problem problem) {
         String sql = "UPDATE problem SET title = ?, description = ?, update_date = ?, level = ? WHERE problem_id = ?";
         jdbcTemplate.update(sql, problem.getTitle(), problem.getDescription(), problem.getUpdateDate(), problem.getLevel(), updateProblemId);
+    }
+
+    public Problem findProblemByProblemId(Long problemId){
+
+        try {
+            String sql = "SELECT * From problem WHERE problem_id = ?";
+            return Optional.ofNullable(jdbcTemplate.queryForObject(sql, problemRowMapper(), problemId)).get();
+        }catch (EmptyResultDataAccessException e){
+            return null;
+        }
     }
 
 

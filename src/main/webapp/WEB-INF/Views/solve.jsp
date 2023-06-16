@@ -103,29 +103,30 @@
     </style>
 </head>
 <body class="solve">
+
 <jsp:include page="/header"/>
 <div class="header-hr"></div>
-<div class="solve-title1">문자열 출력하기</div>
+<div class="solve-title1">${problem.getTitle()}</div>
 <div class="solve-hr"></div>
 <div class="solve-container">
     <div class="solve-side-container">
         <div>
             <div class="solve-title">문제 설명</div>
-            <div class="solve-text">문자열 str이 주어질 때, str을 출력하는 코드를 작성해 보세요.</div>
+            <div class="solve-text">${problem.getDescription()}</div>
         </div>
         <div class="solve-hr"></div>
-        <div>
-            <div class="solve-title">제한사항</div>
-            <div class="solve-text">1. 1 ≤ str의 길이 ≤ 1,000,000</div>
-            <div class="solve-text">str에는 공백이 없으며, 첫째 줄에 한 줄로만 주어집니다.</div>
-        </div>
+<%--        <div>--%>
+<%--            <div class="solve-title">제한사항</div>--%>
+<%--            <div class="solve-text">1. 1 ≤ str의 길이 ≤ 1,000,000</div>--%>
+<%--            <div class="solve-text">str에는 공백이 없으며, 첫째 줄에 한 줄로만 주어집니다.</div>--%>
+<%--        </div>--%>
         <div class="solve-hr"></div>
         <div>
             <div class="solve-title">입출력 예</div>
             <div class="solve-text">입력</div>
-            <div class="solve-ex-box">HelloWorld!</div>
+            <div class="solve-ex-box">${exampleInput.get("input")}</div>
             <div class="solve-text">출력</div>
-            <div class="solve-ex-box">HelloWorld!</div>
+            <div class="solve-ex-box">${exampleOutput.get("output")}</div>
         </div>
         <div>
             <a href="/problemBoardList"><div class="solve-board-btn">질문게시판</div></a>
@@ -169,13 +170,16 @@
     });
 
     function save(){
-        var value = window.editor.getValue();
-        var xhr = new XMLHttpRequest();
-        // location.href="/solveProblem";
 
-        // Configure the request
+        var testCaseSize = ${testcaseNum};
 
-        xhr.onreadystatechange = function() {
+        var codeResults = "";
+
+        for (i = 0; i < testCaseSize; i++){
+            var value = window.editor.getValue();
+            var xhr = new XMLHttpRequest();
+
+            xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 console.log(xhr.response);
                 var jsonResponse = JSON.parse(xhr.response);
@@ -184,7 +188,8 @@
                 // Do something with the response
                 // For example, update the solve-output element
                 var solveTextDiv = document.querySelector(".solve-output");
-                solveTextDiv.innerHTML = jsonResponse.output;
+                codeResults = codeResults + jsonResponse.output + "<br/>";
+                solveTextDiv.innerHTML = codeResults;
 
             }
             else if (xhr.readyState === XMLHttpRequest.OPENED) {
@@ -200,13 +205,13 @@
                 // console.error(xhr.statusText);
             }
         };
-        xhr.open("POST", "/solveProblem", true);
+        xhr.open("POST", "/executeUserCode", true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
         // Handle the response
         // Send the request
-        xhr.send(JSON.stringify({ value: value }));
-
+        xhr.send(JSON.stringify({ value: value , problemId:${problem.getProblemId()},testNumber:i}));
+        }
     }
 
     function getOutput(){

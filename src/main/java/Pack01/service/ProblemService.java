@@ -46,4 +46,8 @@ public class ProblemService {
     public List<Problem> selectAll(int page, String level) {
         return problemRepository.selectAll(page, level);
     }
+
+    public Problem findProblemByProblemId(Long problemId){
+        return problemRepository.findProblemByProblemId(problemId);
+    }
 }
