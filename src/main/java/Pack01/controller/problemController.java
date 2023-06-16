@@ -1,17 +1,23 @@
 package Pack01.controller;
 
 import JDoole.JDoodle;
+import Pack01.domain.Problem;
+import Pack01.repository.ProblemRepository;
 import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class problemController {
+    @Autowired
+    private ProblemRepository problemRepository;
 
     @PostMapping("/solveProblem")
     public ResponseEntity<String> solve(@RequestBody Map<String, String> request) {
@@ -39,5 +45,16 @@ public class problemController {
         model.addAttribute("result", result);
 
         return "solve";
+    }
+
+    @GetMapping("/problemList")
+    public String problemList(@RequestParam(name = "page", defaultValue = "1") int page,
+                              @RequestParam(name = "level", defaultValue = "") String level,
+                              Model model){
+        List<Problem> problemList = problemRepository.selectAll(page, level);
+        model.addAttribute("problemList", problemList);
+        model.addAttribute("page", page);
+        model.addAttribute("level", level);
+        return "problemList";
     }
 }
