@@ -58,7 +58,7 @@ public class TrialController {
 
         // Create a JSON response using Gson
         Gson gson = new Gson();
-        JsonParser parser = new JsonParser();
+        //JsonParser parser = new JsonParser();
         JsonObject jobj = (JsonObject)parser.parse(result);
         System.out.println(jobj);
         return ResponseEntity.ok(jobj);
