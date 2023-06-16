@@ -1,10 +1,12 @@
 package Pack01.service;
 
+import Pack01.controller.form.ProblemForm;
 import Pack01.domain.Problem;
 import Pack01.repository.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,7 +20,11 @@ public class ProblemService {
     }
 
     //problem 저장
-    public Problem save(Problem problem) {
+    public Problem save(Long userId, ProblemForm problemForm) {
+
+        LocalDateTime now = LocalDateTime.now();
+        Problem problem = new Problem(userId, problemForm.getTitle(), problemForm.getDescription(), now, now, problemForm.getLevel());
+
         return problemRepository.save(problem);
     }
 

@@ -37,7 +37,7 @@ public class TrialRepository {
             return ps;
         }, keyHolder);
 
-        // 채워진 PK를 다시 User 객체에 설정
+        // 채워진 PK를 다시 trial 객체에 설정
         long key = keyHolder.getKey().longValue();
         trial.setTrialId(key);
 

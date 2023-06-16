@@ -43,6 +43,6 @@ public class Tiger {
 	@RequestMapping("/ranking")
 	public String ranking(){return "ranking";}
 
-	@RequestMapping("/problemCreate")
-	public String problemCreate(){return "problemCreate";}
+//	@RequestMapping("/problemCreate")
+//	public String problemCreate(){return "problemCreate";}
 }

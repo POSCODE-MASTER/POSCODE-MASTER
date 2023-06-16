@@ -85,19 +85,19 @@ public class TestController {
 
 
     // problem, testcase 저장
-    @GetMapping("/test3")
-    public String test3(@SessionAttribute(name = "loginUser", required = false) User loginUser) {
-
-        Problem problem = new Problem(loginUser.getUserId(), loginUser.getUserId(), "title", "description", LocalDateTime.now(), LocalDateTime.now(), 3);
-        Problem saveProblem = problemService.save(problem);
-
-
-        Testcase testcase = new Testcase(saveProblem.getProblemId(), "{\"input\" : \"input\"}", "{\"output\" : \"output\"}");
-        Testcase saveTestcase = testCaseService.save(testcase);
-
-
-        return "test";
-    }
+//    @GetMapping("/test3")
+//    public String test3(@SessionAttribute(name = "loginUser", required = false) User loginUser) {
+//
+//        Problem problem = new Problem(loginUser.getUserId(), loginUser.getUserId(), "title", "description", LocalDateTime.now(), LocalDateTime.now(), 3);
+//        Problem saveProblem = problemService.save(problem);
+//
+//
+//        Testcase testcase = new Testcase(saveProblem.getProblemId(), "{\"input\" : \"input\"}", "{\"output\" : \"output\"}");
+//        Testcase saveTestcase = testCaseService.save(testcase);
+//
+//
+//        return "test";
+//    }
 
 
 

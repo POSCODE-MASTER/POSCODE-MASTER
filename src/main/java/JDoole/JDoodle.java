@@ -9,8 +9,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class JDoodle {
-    private static String clientId = "4a0706e32870d70965893de9f8aac11c";
-    private static String clientSecret = "e4251e7f8692d63a68cc4542136828fbd0a317c606cf3858980373f3e75abf29";
+    private static String clientId = "106ecb6fd86bae734a18f6ae09c7e27b";
+    private static String clientSecret = "6dcd21de8f8b43d82a4119a10e96b8462032b0aa77fb6254bbcd20a887e9d029";
     public static String apiCall(String stdin, String script, String language, String versionIndex){
         StringBuilder outputBuilder = new StringBuilder();
         String input = "{\"clientId\": \"" + clientId +
@@ -51,6 +51,8 @@ public class JDoodle {
             e.printStackTrace();
         }
 
+
+        System.out.println(outputBuilder.toString());
         return outputBuilder.toString();
     }
 }

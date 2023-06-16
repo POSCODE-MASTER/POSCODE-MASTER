@@ -1,6 +1,6 @@
 package Pack01.service;
 
-import Pack01.controller.PostForm;
+import Pack01.controller.form.PostForm;
 import Pack01.domain.Post;
 import Pack01.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;

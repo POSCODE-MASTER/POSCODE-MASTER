@@ -1,15 +1,11 @@
 package Pack01.repository;
 
-import Pack01.controller.PostForm;
+import Pack01.controller.form.PostForm;
 import Pack01.domain.Post;
-import Pack01.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
