@@ -166,12 +166,16 @@
             <%--                <div class="login-btn">로그인</div>--%>
         </form>
 
-        <form id="tab2" class="tab-content">
+        <form id="tab2" class="tab-content" action="register" method="POST">
             <div class="tab-text">이메일</div>
-            <input type="text"/>
+            <input type="text" name="id" required/>
             <div class="tab-text">비밀번호</div>
-            <input type="password"/>
-            <div class="login-btn">회원가입</div>
+            <input type="password"  name="password" required/>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <input type="hidden" id="role" name="role" value="user">
+            <input type="hidden" id="level" name="level" value="1">
+            <button type="submit" class="login-btn" onclick="this.disabled=true;this.value='전송중';this.form.submit()">회원가입</button>
         </form>
     </div>
 </div>

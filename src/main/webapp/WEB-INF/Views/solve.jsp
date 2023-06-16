@@ -158,26 +158,23 @@
             fontSize: 15,
             minimap: {enabled:false},
             value: [
-                'public class HelloWorld {',
+                'public class  ProbelmSolving{',
                 'public static void main (String args[]) {',
-                'System.out.println(2);',
-                '}}'
-            ].join('')
+                '',
+                '   }',
+                '}'
+
+            ].join('\n')
         });
     });
 
     function save(){
         var value = window.editor.getValue();
         var xhr = new XMLHttpRequest();
+        // location.href="/solveProblem";
 
         // Configure the request
-        xhr.open("POST", "/solveProblem", true);
-        xhr.setRequestHeader("Content-Type", "application/json");
 
-        // Handle the response
-
-        // Send the request
-        xhr.send(JSON.stringify({ value: value }));
         xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 console.log(xhr.response);
@@ -189,13 +186,27 @@
                 var solveTextDiv = document.querySelector(".solve-output");
                 solveTextDiv.innerHTML = jsonResponse.output;
 
-            } else {
+            }
+            else if (xhr.readyState === XMLHttpRequest.OPENED) {
+                console.log("코드 검사중 출력되는곳");
+                var solveTextDiv = document.querySelector(".solve-output");
+                solveTextDiv.innerHTML = "코드 검사중...";
+            }
+            else {
                 // Request encountered an error
+                console.log("Else문");
                 console.log(xhr.readyState);
+                console.log(xhr.status);
                 // console.error(xhr.statusText);
             }
         };
-        // location.href="/solveProblem";
+        xhr.open("POST", "/solveProblem", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+
+        // Handle the response
+        // Send the request
+        xhr.send(JSON.stringify({ value: value }));
+
     }
 
     function getOutput(){
