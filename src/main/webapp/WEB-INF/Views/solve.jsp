@@ -160,15 +160,14 @@
             value: [
                 'public class HelloWorld {',
                 'public static void main (String args[]) {',
-                'System.out.println("Hello World");',
-                '}'
+                'System.out.println(2);',
+                '}}'
             ].join('')
         });
     });
 
     function save(){
         var value = window.editor.getValue();
-        console.log(value);
         var xhr = new XMLHttpRequest();
 
         // Configure the request
@@ -176,17 +175,27 @@
         xhr.setRequestHeader("Content-Type", "application/json");
 
         // Handle the response
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                // Request was successful
-                console.log(xhr.responseText);
-            } else {
-                // Request encountered an error
-                console.error(xhr.statusText);
-            }
-        };
+
         // Send the request
         xhr.send(JSON.stringify({ value: value }));
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                console.log(xhr.response);
+                var jsonResponse = JSON.parse(xhr.response);
+                console.log("여기는 responseText 받는곳");
+                console.log(jsonResponse);
+                // Do something with the response
+                // For example, update the solve-output element
+                var solveTextDiv = document.querySelector(".solve-output");
+                solveTextDiv.innerHTML = jsonResponse.output;
+
+            } else {
+                // Request encountered an error
+                console.log(xhr.readyState);
+                // console.error(xhr.statusText);
+            }
+        };
+        // location.href="/solveProblem";
     }
 
     function getOutput(){

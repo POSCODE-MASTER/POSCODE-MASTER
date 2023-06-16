@@ -67,7 +67,7 @@ public class ProblemRepository {
 
     // 전체 조회 (페이징 + level 필터)
     public List<Problem> selectAll(int page, String level) {
-        int pageSize = 10;
+        int pageSize = 9;
         int offset = (page - 1) * pageSize; // 페이지의 시작 오프셋 계산
 
         StringBuilder sqlBuilder = new StringBuilder("SELECT * FROM problem");
