@@ -7,6 +7,8 @@ import Pack01.domain.User;
 import Pack01.repository.ProblemRepository;
 import Pack01.repository.TestcaseRepository;
 import Pack01.repository.TrialRepository;
+import Pack01.repository.UserRepository;
+import Pack01.repository.dto.SolvedProblemDto;
 import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
 import Pack01.service.TrialService;
@@ -49,6 +51,9 @@ public class TestController {
 
     @Autowired
     private TrialRepository trialRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
 
 
@@ -239,6 +244,31 @@ public class TestController {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        return "test";
+    }
+
+
+
+    // 내가 맞은 문제 리스트 조회
+    @GetMapping("/test10")
+    public String test10() {
+
+        Long userId = 2L;
+
+        List<SolvedProblemDto> solvedProblemDtos = userRepository.selectSolvedProblem(userId);
+
+        for (SolvedProblemDto solvedProblemDto : solvedProblemDtos) {
+            System.out.println(solvedProblemDto.getProblemId());
+            System.out.println(solvedProblemDto.getUserId());
+            System.out.println(solvedProblemDto.getTitle());
+            System.out.println(solvedProblemDto.getDescription());
+            System.out.println(solvedProblemDto.getWrittenDate().toString());
+            System.out.println(solvedProblemDto.getUpdateDate().toString());
+            System.out.println(solvedProblemDto.getLevel());
+            System.out.println(solvedProblemDto.getSolver());
+            System.out.println(solvedProblemDto.getSolveTime());
         }
 
         return "test";
