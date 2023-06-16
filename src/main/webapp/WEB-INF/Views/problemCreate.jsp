@@ -87,18 +87,25 @@
     <div class="problem-create-container">
         <div class="form-container">
             <div class="form-title">문제 생성</div>
-            <form action="컨트롤러URL" method="POST">
+            <form action="problemCreate" method="POST">
                 <div class="form-group">
-                    <label for="problemTitle">문제 제목</label>
-                    <input class="form-input" type="text" id="problemTitle" name="problemTitle" required>
+                    <label for="title">문제 제목</label>
+                    <input class="form-input" type="text" id="title" name="title" required>
                 </div>
                 <div class="form-group">
-                    <label for="problemDescription">문제 설명</label>
-                    <textarea class="form-input-area" id="problemDescription" name="problemDescription" required></textarea>
+                    <label for="description">문제 설명</label>
+                    <textarea class="form-input-area" id="description" name="description" required></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="problemConstraints">제한 사항</label>
-                    <textarea class="form-input-area" id="problemConstraints" name="problemConstraints" required></textarea>
+                    <label for="level">레벨</label>
+                    <select class="form-input" id="level" name="level" required>
+                        <option value="" disabled selected>레벨을 선택하세요</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <button type="submit">문제 생성</button>

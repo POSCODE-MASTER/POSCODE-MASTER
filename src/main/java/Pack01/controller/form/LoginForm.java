@@ -1,4 +1,4 @@
-package Pack01.controller;
+package Pack01.controller.form;
 
 public class LoginForm {
 

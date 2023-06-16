@@ -1,5 +1,6 @@
 package Pack01.controller;
 
+import Pack01.controller.form.LoginForm;
 import Pack01.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
