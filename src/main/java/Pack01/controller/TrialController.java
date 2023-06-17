@@ -8,6 +8,7 @@ import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
 import Pack01.service.TrialService;
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -106,7 +107,17 @@ public class TrialController {
             System.out.println(value);
             System.out.println(currentTime);
 
-            Trial trial = new Trial(testcase.getTestcaseId(),userId, trialSolved,memory, cpuTime,output,value,currentTime);
+            String[]  outputDB = output.split("\\s+");
+            JsonArray outputArray = new JsonArray();
+            for (String i : outputDB) {
+                outputArray.add(i);
+            }
+            JsonObject outputJsonObject = new JsonObject();
+            outputJsonObject.add("output", outputArray);
+            String outputJson = new Gson().toJson(outputJsonObject);
+
+            Trial trial = new Trial(testcase.getTestcaseId(),userId, trialSolved,memory, cpuTime,outputJson,value,currentTime);
+            System.out.println("OK until here");
             trialService.save(trial);
         }
         return ResponseEntity.ok(resultList);

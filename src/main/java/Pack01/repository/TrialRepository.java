@@ -24,6 +24,7 @@ public class TrialRepository {
         String sql = "INSERT INTO trial (testcase_id, user_id, is_solved, memory, cpu_time, output, code, solve_time) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
+
         jdbcTemplate.update(connection -> {
             PreparedStatement ps = connection.prepareStatement(sql, new String[]{"trial_id"});
             ps.setLong(1, trial.getTestcaseId());
@@ -34,6 +35,12 @@ public class TrialRepository {
             ps.setString(6, trial.getOutput());
             ps.setString(7, trial.getCode());
             ps.setObject(8, trial.getSolveTime());
+            System.out.println(ps);
+
+
+
+
+
             return ps;
         }, keyHolder);
 
