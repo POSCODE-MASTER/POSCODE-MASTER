@@ -2,6 +2,7 @@ package Pack01.controller;
 
 import Pack01.controller.form.LoginForm;
 import Pack01.domain.User;
+import Pack01.domain.UserRanking;
 import Pack01.repository.dto.SolvedProblemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -108,5 +109,11 @@ public class UserController {
         return "myPage";
     }
 
+    @GetMapping("/header")
+    public String header(@SessionAttribute(name="loginUser") User loginUser, Model model){
+        User user = userService.findByUserId(loginUser.getUserId());
+        model.addAttribute("userRole", user.getRole());
+        return "header";
+    }
 
 }

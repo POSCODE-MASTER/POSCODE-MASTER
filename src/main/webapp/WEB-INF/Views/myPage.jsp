@@ -78,6 +78,11 @@
             color: #0066ff;
             margin-right: 8px;
         }
+        .notice{
+            font-size: 12px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -101,8 +106,9 @@
                 </div>
                 <div class="info-line">
                     <div>등수</div>
-                    <div>814921</div>
+                    <div>${myRanking.getRanking()}</div>
                 </div>
+                <div class="notice">*맞은 문제가 10문제 이상일 경우,<br> 문제생성이 가능합니다.</div>
             </div>
             <div class="my-page-solved">
                 <div class="solved-title">맞은 문제</div>

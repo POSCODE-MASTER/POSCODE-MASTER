@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -71,7 +72,9 @@
             <div class="logo">POSCODE</div>
             <a href="/problemList?page=1&level="><div class="header-btn">문제풀기</div></a>
             <a href="/ranking"><div class="header-btn">랭킹보기</div></a>
-            <a href="/problemCreate"><div class="header-btn">문제생성</div></a>
+            <c:if test="${userRole!='user'}">
+                <a href="/problemCreate"><div class="header-btn">문제생성</div></a>
+            </c:if>
         </div>
         <div class="header-btns">
 <%--            <div id="loginBtn">로그아웃</div>--%>
