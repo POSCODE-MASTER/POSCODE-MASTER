@@ -97,7 +97,8 @@
     <div class="header-hr"></div>
     <div class="problem-create-container">
         <div class="form-title">10512번 문제 질문하기</div>
-        <form action="problemCreate" method="POST" class="form-container">
+        <form action="problemBoardCreate" method="POST" class="form-container">
+            <input type="hidden" name="problemId" value="${problemId}" />
             <div class="form-group">
                 <label for="title">제목</label>
                 <input class="form-input" type="text" id="title" name="title" required>

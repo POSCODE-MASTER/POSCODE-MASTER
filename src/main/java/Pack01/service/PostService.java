@@ -6,6 +6,7 @@ import Pack01.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -18,15 +19,17 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    void save(PostForm postForm){
-        postRepository.save(postForm);
+    public void save(Long problemId, Long userId, PostForm postForm){
+        Post post = new Post(problemId, userId, postForm.getTitle(), postForm.getContent(), LocalDateTime.now());
+
+        postRepository.save(post);
     }
 
-    void update(PostForm postForm, Long post_id){
-        postRepository.update(postForm, post_id);
+    public void update(Post post, Long post_id){
+        postRepository.update(post, post_id);
     }
 
-    void delete(Long post_id){
+    public void delete(Long post_id){
         postRepository.delete(post_id);
     }
 

@@ -22,16 +22,16 @@ public class PostRepository {
     }
 
     //save
-    public void save(PostForm postForm){
+    public void save(Post post){
         String query = "INSERT INTO post (problem_id, user_id, title, content, written_date) " +
                        "VALUES (?, ?, ?, ?, ?);";
 
         jdbcTemplate.update(
                 query,
-                postForm.getProblem_id(),
-                postForm.getUser_id(),
-                postForm.getTitle(),
-                postForm.getContent(),
+                post.getProblem_id(),
+                post.getUser_id(),
+                post.getTitle(),
+                post.getContent(),
                 String.valueOf(LocalDateTime.now())
                 );
 
@@ -39,12 +39,12 @@ public class PostRepository {
     }
 
 
-    public void update(PostForm postForm, Long post_id){
+    public void update(Post post, Long post_id){
         String query = "UPDATE post SET title = ?, content = ? WHERE post_id = ?";
         jdbcTemplate.update(
                 query,
-                postForm.getTitle(),
-                postForm.getContent(),
+                post.getTitle(),
+                post.getContent(),
                 post_id
         );
 
