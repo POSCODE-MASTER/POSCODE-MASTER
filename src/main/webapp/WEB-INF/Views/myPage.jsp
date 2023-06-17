@@ -106,7 +106,7 @@
                 </div>
                 <div class="info-line">
                     <div>등수</div>
-                    <div>${myRanking.getRanking()}</div>
+                    <div>${userRanking.getRanking()}</div>
                 </div>
                 <div class="notice">*맞은 문제가 10문제 이상일 경우,<br> 문제생성이 가능합니다.</div>
             </div>

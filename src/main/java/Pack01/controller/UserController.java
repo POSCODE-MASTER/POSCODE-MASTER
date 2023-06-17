@@ -4,6 +4,7 @@ import Pack01.controller.form.LoginForm;
 import Pack01.domain.User;
 import Pack01.domain.UserRanking;
 import Pack01.repository.dto.SolvedProblemDto;
+import Pack01.service.UserRankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,10 +19,12 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
+    private final UserRankingService userRankingService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRankingService userRankingService) {
         this.userService = userService;
+        this.userRankingService = userRankingService;
     }
 
     /**
@@ -105,6 +108,9 @@ public class UserController {
 
         List<SolvedProblemDto> solvedProblem = userService.selectSolvedProblem(loginUser.getUserId());
         model.addAttribute("solvedProblems", solvedProblem);
+
+        UserRanking userRanking = userRankingService.findUserRankingById(loginUser.getUserId());
+        model.addAttribute("userRanking",userRanking);
 
         return "myPage";
     }
