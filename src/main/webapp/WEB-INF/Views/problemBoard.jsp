@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -89,8 +90,8 @@
     <div class="header-hr"></div>
     <div class="board-container">
         <div class="board-title-box">
-            <div class="board-title">진짜 쉬운건데 모르겠어요..</div>
-            <div class="board-author">이유진</div>
+            <div class="board-title">1458번 문제</div>
+            <div class="board-author"></div>
         </div>
         <div>
             <table>
@@ -101,20 +102,17 @@
                         <div>
                             진짜 오바에요 왜 틀린거죠? 문제가 잘못됐나?
                         </div>
-                        <div id="monaco" class="monaco-board-css"></div>
                     </td>
                 </tr>
                 </tbody>
             </table>
             <div class="board-comment-container">
-                <table class="board-comment-box">
-                    <thead><th class="board-comment-head">userId</th></thead>
-                    <tbody><td class="board-comment-body">아니 ㅋㅋ넌 알려줘도 의미없을 듯 그냥 접어라</td></tbody>
-                </table>
-                <table>
-                    <thead><th class="board-comment-head">rooproop1111</th></thead>
-                    <tbody><td class="board-comment-body">함수를 정의하세요..아니면 println에 a+b하시던가 그리고 모르면 알려줍시다 뭐라하지말고</td></tbody>
-                </table>
+                <c:forEach items="${commentList}" var="comment">
+                    <table class="board-comment-box">
+                        <thead><th class="board-comment-head">${comment.userId}</th></thead>
+                        <tbody><td class="board-comment-body">${comment.comment}</td></tbody>
+                    </table>
+                </c:forEach>
             </div>
             <div class="input-wrapper">
                 <input type="text" placeholder="Enter your text">
@@ -122,31 +120,5 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
-    <script>
-        var editor;
-
-        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
-        require(['vs/editor/editor.main'], function() {
-            editor = monaco.editor.create(document.getElementById('monaco'), {
-                theme: 'atom-one-dark',
-                fontFamily: 'Nanum Gothic Coding',
-                automaticLayout: true,
-                language: 'java',
-                fontSize: 15,
-                readOnly: true,
-                minimap: {enabled:false},
-                value: [
-                    '//Monaco 코드 편집기',
-                    '//Java',
-                    'class HelloWorld {',
-                    'public static void main (String args[]) {',
-                    '   plus(a+b);',
-                    '}'
-                ].join('\n')
-            });
-        });
-    </script>
 </body>
 </html>

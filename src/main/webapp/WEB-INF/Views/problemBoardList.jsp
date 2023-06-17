@@ -56,13 +56,20 @@
       width: 100%;
     }
   </style>
+  <script>
+    function toBoard(postId){
+      var url = '/problemBoard?postId=' + postId;
+      window.location.href = url;
+      console.log(url);
+    }
+  </script>
 </head>
 <body>
 <jsp:include page="/header"/>
 <div class="header-hr"></div>
 <div class="board-container">
   <div class="board-title-box">
-    <div class="board-title">10512번 문제 게시판</div>
+    <div class="board-title">${problemId}번 문제 게시판</div>
     <a href="/problemBoardCreate"><div class="board-create">질문하기</div></a>
   </div>
   <div>
@@ -75,12 +82,10 @@
       </thead>
       <tbody>
         <c:forEach items="${problemBoardList}" var="board">
-          <a href="/problemBoard?postId=${board.post_id}">
-            <tr>
-              <td>${board.title}</td>
-              <td>${board.user_id}</td>
-            </tr>
-          </a>
+              <tr onclick="toBoard(${board.post_id})">
+                <td>${board.title}</td>
+                <td>${board.user_id}</td>
+              </tr>
         </c:forEach>
       </tbody>
     </table>

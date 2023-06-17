@@ -130,7 +130,7 @@
             <div class="solve-ex-box">${exampleOutput.get("output")}</div>
         </div>
         <div>
-            <a href="/problemBoardList"><div class="solve-board-btn">질문게시판</div></a>
+            <a href="/problemBoardList?problemId=${problem.problemId}"><div class="solve-board-btn">질문게시판</div></a>
         </div>
     </div>
     <div class="solve-side-container">

@@ -63,7 +63,7 @@ public class PostRepository {
 
     public List<Post> findByProblemId(Long problem_id){
         List<Post> postList = new ArrayList<>();
-        String query = "SELECT * FROM post WHERE post_id = ?";
+        String query = "SELECT * FROM post WHERE problem_id = ?";
 
         List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, problem_id);
         for(Map<String, Object> row : rows) {
