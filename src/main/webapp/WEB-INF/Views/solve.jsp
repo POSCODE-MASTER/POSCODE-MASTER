@@ -1,3 +1,4 @@
+<%@ page import="Pack01.domain.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -169,27 +170,32 @@
         });
     });
 
-    function save(){
-
-        var testCaseSize = ${testcaseNum};
-
-        var codeResults = "";
-
-        for (i = 0; i < testCaseSize; i++){
+    async function save(){
             var value = window.editor.getValue();
             var xhr = new XMLHttpRequest();
-
             xhr.onreadystatechange = function() {
             if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                console.log(xhr.response);
-                var jsonResponse = JSON.parse(xhr.response);
-                console.log("여기는 responseText 받는곳");
-                console.log(jsonResponse);
-                // Do something with the response
-                // For example, update the solve-output element
-                var solveTextDiv = document.querySelector(".solve-output");
-                codeResults = codeResults + jsonResponse.output + "<br/>";
-                solveTextDiv.innerHTML = codeResults;
+                var jsonArray = JSON.parse(xhr.response);
+                console.log(jsonArray);
+                var resultString = "";
+                var index = 1;
+                for(let result of jsonArray){
+                    console.log(result + "in for loop");
+                    console.log(typeof result + "in for loop");
+
+                    var solveTextDiv = document.querySelector(".solve-output");
+                    console.log(result.output+ "     " + result.answer);
+                    var color = result.isCorrect === "Solved" ? "dodgerblue" : "red";
+                    resultString += "<p style='color:" + color + "'>"
+                        + "Testcase "+index + " "  + result.isCorrect + " <br/>"
+                        + " Memory Used: "  + result.memory + " <br/>"
+                        + " Time: "  + result.cpuTime + "sec <br/>"
+                        + " userAnswer: " + result.output + " <br/>"
+                        + " testcaseAnswer: " + result.answer + "<br/> </p>"
+
+                    index += 1;
+                }
+                solveTextDiv.innerHTML =  resultString;
 
             }
             else if (xhr.readyState === XMLHttpRequest.OPENED) {
@@ -210,8 +216,8 @@
 
         // Handle the response
         // Send the request
-        xhr.send(JSON.stringify({ value: value , problemId:${problem.getProblemId()},testNumber:i}));
-        }
+        <%User user = (User)session.getAttribute("loginUser");%>
+        xhr.send(JSON.stringify({ value: value , problemId:${problem.getProblemId()}, userId:<%=user.getUserId()%>}));
     }
 
     function getOutput(){
