@@ -49,7 +49,7 @@ public class UserController {
         HttpSession session = request.getSession();
         //세션에 로그인 회원 정보 보관
         session.setAttribute("loginUser", loginUser);
-        return "/problemList";  // 로그인 성공 시 /main으로 리다이렉트
+        return "redirect:/problemList?page=1&level=";  // 로그인 성공 시 /main으로 리다이렉트
     }
 
     /**

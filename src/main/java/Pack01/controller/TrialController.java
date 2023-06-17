@@ -94,6 +94,7 @@ public class TrialController {
             System.out.println("Result is.." + jobj);
 
             Boolean trialSolved = answer.equals(output)? true:false;
+            //만약 error가 난다면, memoery와 CPUtime은 null이 된다. 해당 부분을 전처리 하는 코드가 필요하다 .
             System.out.println(jobj.get("memory").toString());
             Long memory = Long.parseLong(jobj.get("memory").toString().replace("\"",""));
             double cpuTime = Double.parseDouble(jobj.get("cpuTime").toString().replace("\"",""));
