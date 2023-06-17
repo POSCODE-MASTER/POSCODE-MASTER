@@ -24,11 +24,11 @@ public class CommentController {
         this.commentRepository = commentRepository;
     }
 
-    @GetMapping("/problemBoard")
-    public String problemBoard(@RequestParam(name="postId") Long postId,
-                               Model model){
-        List<Comment> commentList = commentRepository.selectAllComment(postId);
-        model.addAttribute("commentList", commentList);
-        return "problemBoard";
-    }
+//    @GetMapping("/problemBoard")
+//    public String problemBoard(@RequestParam(name="postId") Long postId,
+//                               Model model){
+//        List<Comment> commentList = commentRepository.selectAllComment(postId);
+//        model.addAttribute("commentList", commentList);
+//        return "problemBoard";
+//    }
 }

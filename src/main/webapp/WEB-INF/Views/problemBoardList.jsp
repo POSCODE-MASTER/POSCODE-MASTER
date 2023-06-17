@@ -78,13 +78,15 @@
       <tr>
         <th>제목</th>
         <th>글쓴이</th>
+        <th style="text-align: right;">날짜</th>
       </tr>
       </thead>
       <tbody>
         <c:forEach items="${problemBoardList}" var="board">
-              <tr onclick="toBoard(${board.post_id})">
+              <tr onclick="toBoard(${board.postId})">
                 <td>${board.title}</td>
-                <td>${board.user_id}</td>
+                <td>${board.name}</td>
+                <td style="text-align: right;">${board.writtenDate}</td>
               </tr>
         </c:forEach>
       </tbody>

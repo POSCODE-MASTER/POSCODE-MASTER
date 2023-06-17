@@ -83,42 +83,45 @@
             border-radius: 5px;
             cursor: pointer;
         }
+        .post-table {
+            background-color: #f9f9f9;
+        }
     </style>
 </head>
 <body>
-    <jsp:include page="/header"/>
-    <div class="header-hr"></div>
-    <div class="board-container">
-        <div class="board-title-box">
-            <div class="board-title">1458번 문제</div>
-            <div class="board-author"></div>
+<jsp:include page="/header"/>
+<div class="header-hr"></div>
+<div class="board-container">
+    <div class="board-title-box">
+        <div class="board-title">1458번 문제</div>
+        <div class="board-author"></div>
+    </div>
+    <div>
+        <table class="post-table">
+            <thead><tr><th>userId</th></tr></thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div>
+                        진짜 오바에요 왜 틀린거죠? 문제가 잘못됐나?
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="board-comment-container">
+            <c:forEach items="${commentList}" var="comment">
+                <table class="board-comment-box">
+                    <thead><th class="board-comment-head">${comment.userId}</th></thead>
+                    <tbody><td class="board-comment-body">${comment.comment}</td></tbody>
+                </table>
+            </c:forEach>
         </div>
-        <div>
-            <table>
-                <thead><tr><th>userId</th></tr></thead>
-                <tbody>
-                <tr>
-                    <td>
-                        <div>
-                            진짜 오바에요 왜 틀린거죠? 문제가 잘못됐나?
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <div class="board-comment-container">
-                <c:forEach items="${commentList}" var="comment">
-                    <table class="board-comment-box">
-                        <thead><th class="board-comment-head">${comment.userId}</th></thead>
-                        <tbody><td class="board-comment-body">${comment.comment}</td></tbody>
-                    </table>
-                </c:forEach>
-            </div>
-            <div class="input-wrapper">
-                <input type="text" placeholder="Enter your text">
-                <button>작성</button>
-            </div>
+        <div class="input-wrapper">
+            <input type="text" placeholder="Enter your text">
+            <button>작성</button>
         </div>
     </div>
+</div>
 </body>
 </html>

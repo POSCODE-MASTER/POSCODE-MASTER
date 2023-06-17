@@ -2,6 +2,7 @@ package Pack01.controller;
 
 import Pack01.domain.*;
 import Pack01.repository.*;
+import Pack01.repository.dto.PostAndUserName;
 import Pack01.repository.dto.SolvedProblemDto;
 import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
@@ -278,11 +279,11 @@ public class TestController {
     @GetMapping("/test11")
     public String test11() {
 
-        List<Post> byProblemId = postRepository.findByProblemId(15L);
+        List<PostAndUserName> byProblemId = postRepository.findByProblemId(15L);
 
-        for (Post post : byProblemId) {
-            System.out.println(post.getTitle());
-            System.out.println(post.getContent());
+        for (PostAndUserName postAndUserName : byProblemId) {
+            System.out.println(postAndUserName.getName());
+            System.out.println(postAndUserName.getTitle());
         }
 
         return "test";

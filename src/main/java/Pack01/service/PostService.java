@@ -3,6 +3,7 @@ package Pack01.service;
 import Pack01.controller.form.PostForm;
 import Pack01.domain.Post;
 import Pack01.repository.PostRepository;
+import Pack01.repository.dto.PostAndUserName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class PostService {
         postRepository.delete(post_id);
     }
 
-    public List<Post> findByProblemId(Long problem_id){
+    public List<PostAndUserName> findByProblemId(Long problem_id){
         return postRepository.findByProblemId(problem_id);
     }
 

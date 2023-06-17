@@ -8,6 +8,7 @@ import Pack01.domain.Problem;
 import Pack01.domain.User;
 import Pack01.repository.PostRepository;
 import Pack01.repository.ProblemRepository;
+import Pack01.repository.dto.PostAndUserName;
 import Pack01.service.PostService;
 import Pack01.service.ProblemService;
 import com.google.gson.Gson;
@@ -50,13 +51,10 @@ public class ProblemController {
     public String problemBoardList(
                               @RequestParam(name = "problemId") Long problemId,
                               Model model){
-        List<Post> problemBoardList = postRepository.findByProblemId(problemId);
+        List<PostAndUserName> problemBoardList = postRepository.findByProblemId(problemId);
         model.addAttribute("problemId", problemId);
         model.addAttribute("problemBoardList", problemBoardList);
-        for (Post post : problemBoardList) {
-            System.out.println(post.getPost_id());
-            System.out.println(post.getTitle());
-        }
+
         return "problemBoardList";
     }
 

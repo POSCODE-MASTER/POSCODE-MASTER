@@ -1,7 +1,7 @@
 package Pack01.repository;
 
-import Pack01.controller.form.PostForm;
 import Pack01.domain.Post;
+import Pack01.repository.dto.PostAndUserName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -61,23 +61,36 @@ public class PostRepository {
         System.out.println("Post 수정 성공");
     }
 
-    public List<Post> findByProblemId(Long problem_id){
-        List<Post> postList = new ArrayList<>();
-        String query = "SELECT * FROM post WHERE problem_id = ?";
+    public List<PostAndUserName> findByProblemId(Long problemId){
+        List<PostAndUserName> postList = new ArrayList<>();
+//        String query = "SELECT * FROM post WHERE problem_id = ?";
 
-        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, problem_id);
+        String query =  "SELECT p.*, u.name " +
+                        "FROM post p " +
+                        "JOIN user u ON p.user_id = u.user_id " +
+                        "WHERE problem_id = ?";
+
+        List<Map<String, Object>> rows = jdbcTemplate.queryForList(query, problemId);
         for(Map<String, Object> row : rows) {
-            postList.add(new Post(
+            postList.add(new PostAndUserName(
                     (long) row.get("post_id"),
                     (long) row.get("problem_id"),
                     (long) row.get("user_id"),
                     (String) row.get("title"),
                     (String) row.get("content"),
-                    (LocalDateTime) row.get("written_date")
+                    (LocalDateTime) row.get("written_date"),
+                    (String) row.get("name")
             ));
         }
-            return postList;
-        }
+
+        return postList;
+    }
+
+//    public Post findByPostId(Long postId) {
+//        String sql = "SELECT * FROM post WHERE postId = ?";
+//
+//
+//    }
 
     public List<Post> findByUserId(Long user_id){
         List<Post> postList = new ArrayList<>();
