@@ -68,7 +68,7 @@
 <body>
     <div class="header">
         <div class="header-menu">
-            <a href="/"><div class="logo">POSCODE</div></a>
+            <div class="logo">POSCODE</div>
             <a href="/problemList?page=1&level="><div class="header-btn">문제풀기</div></a>
             <a href="/ranking"><div class="header-btn">랭킹보기</div></a>
             <a href="/problemCreate"><div class="header-btn">문제생성</div></a>

@@ -24,10 +24,21 @@
             margin-top: 30px;
             margin-bottom: 30px;
         }
-        .login-content{
+        .login-content {
             display: flex;
             flex-direction: column;
             margin-top: 20px;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .login-content.show {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+            opacity: 1;
+            transform: translateY(0);
         }
         .tabs {
             display: flex;
@@ -123,6 +134,11 @@
         }
     </style>
     <script>
+        window.addEventListener("DOMContentLoaded", function() {
+            var loginContent = document.querySelector(".login-content");
+            loginContent.classList.add("show");
+        });
+
         function changeTab(event, tabId) {
             // 모든 탭 콘텐츠 숨김
             var tabContents = document.getElementsByClassName("tab-content");

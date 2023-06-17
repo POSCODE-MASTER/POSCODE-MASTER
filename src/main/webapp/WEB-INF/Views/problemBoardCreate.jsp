@@ -70,7 +70,7 @@
         .form-input-area{
             font-size: 15px;
             width: 100%;
-            height: 80px;
+            height: 200px;
             padding: 5px;
             box-sizing: border-box;
             border: 1px solid lightgray;
@@ -106,7 +106,6 @@
             <div class="form-group">
                 <label for="description">설명</label>
                 <textarea class="form-input-area" id="description" name="description" required></textarea>
-                <div id="monaco" class="monaco-board-css"></div>
             </div>
             <div class="form-group">
                 <button type="submit">질문 생성</button>
@@ -114,30 +113,4 @@
         </form>
     </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs/loader.js"></script>
-<script>
-    var editor;
-
-    require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.16.2/min/vs' }});
-    require(['vs/editor/editor.main'], function() {
-        editor = monaco.editor.create(document.getElementById('monaco'), {
-            theme: 'atom-one-dark',
-            fontFamily: 'Nanum Gothic Coding',
-            automaticLayout: true,
-            language: 'java',
-            fontSize: 15,
-            readOnly: true,
-            minimap: {enabled:false},
-            value: [
-                '//Monaco 코드 편집기',
-                '//Java',
-                'class HelloWorld {',
-                'public static void main (String args[]) {',
-                '   plus(a+b);',
-                '}'
-            ].join('\n')
-        });
-    });
-</script>
 </html>
