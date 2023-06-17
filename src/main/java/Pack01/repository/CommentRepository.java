@@ -1,7 +1,7 @@
 package Pack01.repository;
 
 import Pack01.domain.Comment;
-import Pack01.domain.Problem;
+import Pack01.repository.dto.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,8 +10,6 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -60,6 +58,29 @@ public class CommentRepository {
             return comment;
         };
     }
+
+
+    //postId로 comment정보, user의 name 조회
+    public List<CommentDto> selectPostDetail(Long postId) {
+        String sql = "SELECT u.name, pc.* " +
+                    "FROM post_comment pc " +
+                    "JOIN user u ON pc.user_id = u.user_id " +
+                    "WHERE pc.post_id = ? " +
+                    "ORDER BY pc.post_comment_id";
+
+        RowMapper<CommentDto> rowMapper = (resultSet, rowNum) -> {
+            CommentDto commentDto = new CommentDto(
+                    resultSet.getLong("post_comment_id"),
+                    resultSet.getLong("post_id"),
+                    resultSet.getLong("user_id"),
+                    resultSet.getString("comment")
+            );
+            return commentDto;
+        };
+
+        return jdbcTemplate.query(sql, rowMapper, postId);
+    }
+
 
 
 }

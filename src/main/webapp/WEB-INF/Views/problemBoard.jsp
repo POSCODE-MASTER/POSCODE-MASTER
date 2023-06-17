@@ -93,17 +93,17 @@
 <div class="header-hr"></div>
 <div class="board-container">
     <div class="board-title-box">
-        <div class="board-title">1458번 문제</div>
+        <div class="board-title">${post.problem_id}번 문제</div>
         <div class="board-author"></div>
     </div>
     <div>
         <table class="post-table">
-            <thead><tr><th>userId</th></tr></thead>
+            <thead><tr><th>${post.title}</th></tr></thead>
             <tbody>
             <tr>
                 <td>
                     <div>
-                        진짜 오바에요 왜 틀린거죠? 문제가 잘못됐나?
+                        ${post.content}
                     </div>
                 </td>
             </tr>

@@ -2,6 +2,7 @@ package Pack01.service;
 
 import Pack01.controller.form.PostForm;
 import Pack01.domain.Post;
+import Pack01.repository.CommentRepository;
 import Pack01.repository.PostRepository;
 import Pack01.repository.dto.PostAndUserName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,12 @@ import java.util.List;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository){
+    public PostService(PostRepository postRepository, CommentRepository commentRepository){
         this.postRepository = postRepository;
+        this.commentRepository = commentRepository;
     }
 
     public void save(Long problemId, Long userId, PostForm postForm){
@@ -41,4 +44,10 @@ public class PostService {
     public List<Post> findByUserId(Long user_id){
         return postRepository.findByUserId(user_id);
     }
+
+    //상세 게시글
+    public Post detailPost(Long postId) {
+        return postRepository.findByPostId(postId);
+    }
+
 }

@@ -21,9 +21,7 @@ public class JDoodle {
                 "\",\"language\":\"" + language +
                 "\",\"versionIndex\":\"" + versionIndex + "\"} ";
 
-        System.out.println(input);
         try {
-            System.out.println("APICALL2");
             URL url = new URL("https://api.jdoodle.com/v1/execute");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoOutput(true);
@@ -33,7 +31,6 @@ public class JDoodle {
             OutputStream outputStream = connection.getOutputStream();
             outputStream.write(input.getBytes());
             outputStream.flush();
-            System.out.println("APICALL3");
 
             if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
                 System.out.println("ERROR");
@@ -43,21 +40,16 @@ public class JDoodle {
             BufferedReader bufferedReader;
             bufferedReader = new BufferedReader(new InputStreamReader(
                     (connection.getInputStream())));
-            System.out.println("APICALL4");
 
             String output;
             while ((output = bufferedReader.readLine()) != null) {
-                System.out.println("APICALL4.5");
                 outputBuilder.append(output);
             }
 
             connection.disconnect();
-            System.out.println("APICALL5");
         } catch (MalformedURLException e) {
-            System.out.println("APICALL6");
             e.printStackTrace();
         } catch (IOException e) {
-            System.out.println("APICALL7");
             e.printStackTrace();
         }
 

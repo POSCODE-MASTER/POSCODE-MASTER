@@ -1,9 +1,10 @@
 package Pack01.controller;
 
 import Pack01.controller.form.PostForm;
-import Pack01.domain.Comment;
+import Pack01.domain.Post;
 import Pack01.domain.User;
-import Pack01.repository.CommentRepository;
+import Pack01.repository.dto.CommentDto;
+import Pack01.service.CommentService;
 import Pack01.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,13 +17,14 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
-    private final CommentRepository commentRepository;
+    private final CommentService commentService;
 
     @Autowired
-    public PostController(PostService postService, CommentRepository commentRepository) {
+    public PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
-        this.commentRepository = commentRepository;
+        this.commentService = commentService;
     }
+
 
     /**
      * 질문하기 (화면 이동)
@@ -48,8 +50,13 @@ public class PostController {
     @GetMapping("/problemBoard")
     public String problemBoard(@RequestParam(name="postId") Long postId,
                                Model model){
-        List<Comment> commentList = commentRepository.selectAllComment(postId);
+
+        Post post = postService.detailPost(postId);
+        model.addAttribute("post", post);
+
+        List<CommentDto> commentList = commentService.selectComment(postId);
         model.addAttribute("commentList", commentList);
+
         return "problemBoard";
     }
 
