@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <html>
 <head>
     <title>Ranking</title>
@@ -74,43 +76,42 @@
         <div class="ranking-my">내 랭킹</div>
         <table class="ranking-my-table">
             <tr>
-                <th>Ranking</th>
-                <th>User ID</th>
-                <th>Solved Problems</th>
-                <th>Correct Ratio</th>
+                <th>순위</th>
+                <th>이름</th>
+                <th>맞춘 문제 수</th>
+                <th>시도한 문제 수</th>
+                <th>점수</th>
+                <th>성공 비율</th>
             </tr>
             <tr>
-                <td>829011</td>
-                <td>yujin</td>
-                <td>12</td>
-                <td>31%</td>
+                <td>${myRanking.getRanking()}</td>
+                <td>${myRanking.getName()}</td>
+                <td>${myRanking.getCorrect()}</td>
+                <td>${myRanking.getTried()}</td>
+                <td>${myRanking.getScore()}</td>
+                <td>${myRanking.getSolveRatio()}</td>
             </tr>
         </table>
         <table>
             <tr>
-                <th>Ranking</th>
-                <th>User ID</th>
-                <th>Solved Problems</th>
-                <th>Correct Ratio</th>
+                <th>순위</th>
+                <th>이름</th>
+                <th>맞춘 문제 수</th>
+                <th>시도한 문제 수</th>
+                <th>점수</th>
+                <th>성공 비율</th>
             </tr>
+            <c:forEach items="${rankingList}" var="ranking">
             <tr>
-                <td>1</td>
-                <td>user123</td>
-                <td>50</td>
-                <td>75%</td>
+                <td>${ranking.getRanking()}</td>
+                <td>${ranking.getName()}</td>
+                <td>${ranking.getCorrect()}</td>
+                <td>${ranking.getTried()}</td>
+                <td>${ranking.getScore()}</td>
+                <td>${ranking.getSolveRatio()}</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>user456</td>
-                <td>40</td>
-                <td>80%</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>user789</td>
-                <td>35</td>
-                <td>65%</td>
-            </tr>
+            </c:forEach>
+
             <!-- 나머지 랭킹 데이터를 동적으로 추가할 수 있습니다. -->
         </table>
     </div>
