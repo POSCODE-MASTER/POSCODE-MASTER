@@ -74,7 +74,8 @@
             <a href="/problemCreate"><div class="header-btn">문제생성</div></a>
         </div>
         <div class="header-btns">
-            <div id="loginBtn">로그아웃</div>
+<%--            <div id="loginBtn">로그아웃</div>--%>
+            <a href="/logout"><div id="logout">로그아웃</div></a>
             <a href="/myPage"><div id="myPageBtn">마이페이지</div></a>
         </div>
     </div>

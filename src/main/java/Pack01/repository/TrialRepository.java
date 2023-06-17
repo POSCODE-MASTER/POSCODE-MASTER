@@ -37,10 +37,6 @@ public class TrialRepository {
             ps.setObject(8, trial.getSolveTime());
             System.out.println(ps);
 
-
-
-
-
             return ps;
         }, keyHolder);
 

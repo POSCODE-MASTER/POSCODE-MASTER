@@ -1,6 +1,7 @@
 package Pack01.repository;
 
 import Pack01.domain.User;
+import Pack01.repository.dto.ProblemHistoryDto;
 import Pack01.repository.dto.SolvedProblemDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -125,6 +126,11 @@ public class UserRepository {
     }
 
 
+
+    //문제 푼 기록 (푼 문제, 풀지 못한 문제 리스트)
+//    public List<ProblemHistoryDto> selectProblemHistory(Long userId) {
+//        String sql = ""
+//    }
 
 
 

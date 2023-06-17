@@ -1,13 +1,8 @@
 package Pack01.controller;
 
-import Pack01.domain.Problem;
-import Pack01.domain.Testcase;
-import Pack01.domain.Trial;
-import Pack01.domain.User;
-import Pack01.repository.ProblemRepository;
-import Pack01.repository.TestcaseRepository;
-import Pack01.repository.TrialRepository;
-import Pack01.repository.UserRepository;
+import Pack01.domain.*;
+import Pack01.repository.*;
+import Pack01.repository.dto.PostAndUserName;
 import Pack01.repository.dto.SolvedProblemDto;
 import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
@@ -54,6 +49,9 @@ public class TestController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PostRepository postRepository;
 
 
 
@@ -277,6 +275,19 @@ public class TestController {
 
 
 
+    // findByProblemId 테스트
+    @GetMapping("/test11")
+    public String test11() {
+
+        List<PostAndUserName> byProblemId = postRepository.findByProblemId(15L);
+
+        for (PostAndUserName postAndUserName : byProblemId) {
+            System.out.println(postAndUserName.getName());
+            System.out.println(postAndUserName.getTitle());
+        }
+
+        return "test";
+    }
 
 
 

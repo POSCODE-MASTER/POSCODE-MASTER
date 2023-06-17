@@ -70,7 +70,7 @@
 <div class="board-container">
   <div class="board-title-box">
     <div class="board-title">${problemId}번 문제 게시판</div>
-    <a href="/problemBoardCreate"><div class="board-create">질문하기</div></a>
+    <a href="/problemBoardCreate?problemId=${problemId}"><div class="board-create">질문하기</div></a>
   </div>
   <div>
     <table>
@@ -78,13 +78,15 @@
       <tr>
         <th>제목</th>
         <th>글쓴이</th>
+        <th style="text-align: right;">날짜</th>
       </tr>
       </thead>
       <tbody>
         <c:forEach items="${problemBoardList}" var="board">
-              <tr onclick="toBoard(${board.post_id})">
+              <tr onclick="toBoard(${board.postId})">
                 <td>${board.title}</td>
-                <td>${board.user_id}</td>
+                <td>${board.name}</td>
+                <td style="text-align: right;">${board.writtenDate}</td>
               </tr>
         </c:forEach>
       </tbody>

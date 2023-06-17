@@ -96,15 +96,15 @@
     <jsp:include page="/header"/>
     <div class="header-hr"></div>
     <div class="problem-create-container">
-        <div class="form-title">10512번 문제 질문하기</div>
-        <form action="problemCreate" method="POST" class="form-container">
+        <div class="form-title">${param.problemId}번 문제 질문하기</div>
+        <form action="problemBoardCreate?problemId=${param.problemId}" method="POST" class="form-container">
             <div class="form-group">
                 <label for="title">제목</label>
                 <input class="form-input" type="text" id="title" name="title" required>
             </div>
             <div class="form-group">
-                <label for="description">설명</label>
-                <textarea class="form-input-area" id="description" name="description" required></textarea>
+                <label for="content">설명</label>
+                <textarea class="form-input-area" id="content" name="content" required></textarea>
             </div>
             <div class="form-group">
                 <button type="submit">질문 생성</button>

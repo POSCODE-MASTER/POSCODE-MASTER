@@ -34,14 +34,14 @@ public class Tiger {
 	public String solve(){return "solve";}
 
 
-	@RequestMapping("/problemBoard")
-	public String problemBoard(){return "problemBoard";}
+//	@RequestMapping("/problemBoard")
+//	public String problemBoard(){return "problemBoard";}
 
-	@RequestMapping("/problemBoardList")
-	public String problemBoardList(){return "problemBoardList";}
+//	@RequestMapping("/problemBoardList")
+//	public String problemBoardList(){return "problemBoardList";}
 
-	@RequestMapping("/problemBoardCreate")
-	public String problemBoardCreate(){return "problemBoardCreate";}
+//	@RequestMapping("/problemBoardCreate")
+//	public String problemBoardCreate(){return "problemBoardCreate";}
 
 	@RequestMapping("/ranking")
 	public String ranking(){return "ranking";}
