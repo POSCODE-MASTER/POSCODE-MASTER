@@ -27,6 +27,12 @@ public class Post {
         this.written_date = written_date;
     }
 
+    //업데이트용 생성자
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
+
     public long getPost_id() {
         return post_id;
     }

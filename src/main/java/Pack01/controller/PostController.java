@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -48,7 +49,7 @@ public class PostController {
      * 게시글 상세 (화면 이동)
      */
     @GetMapping("/problemBoard")
-    public String problemBoard(@RequestParam(name="postId") Long postId,
+    public String problemBoard(@RequestParam(name="postId") Long postId, @RequestParam(name = "problemId") Long problemId,
                                Model model){
 
         Post post = postService.detailPost(postId);
@@ -60,5 +61,42 @@ public class PostController {
         return "problemBoard";
     }
 
+
+    /**
+     * 게시글 삭제
+     */
+    @GetMapping("/deletePost")
+    public String delete(@SessionAttribute(name = "loginUser", required = false) User loginUser, @RequestParam Long postId, @RequestParam(name = "problemId") Long problemId){
+        postService.delete(loginUser.getUserId(), postId);
+
+        return "redirect:/problemBoardList?problemId=" + problemId;
+    }
+
+    /**
+     * 게시글 수정 (화면 이동)
+     */
+    @GetMapping("/editPost")
+    public String edit(@SessionAttribute(name = "loginUser", required = false) User loginUser, @RequestParam Long postId, @RequestParam(name = "problemId") Long problemId, Model model) {
+
+        Post updateTargetPost = postService.findByPostId(postId);
+        if (loginUser.getUserId()==updateTargetPost.getUser_id()) {
+            model.addAttribute("updateTargetPost", updateTargetPost);
+
+            return "problemBoardUpdate";
+        }
+        return "redirect:/problemBoard?problemId=" + problemId + "&postId=" + postId;
+    }
+
+
+    /**
+     * 게시글 수정 (처리)
+     */
+    @PostMapping("/editPost")
+    public String editOk(@SessionAttribute(name = "loginUser", required = false) User loginUser, @RequestParam Long postId, @RequestParam(name = "problemId") Long problemId, PostForm postForm, Model model) {
+
+        postService.update(loginUser.getUserId(), postForm, postId);
+
+        return "redirect:/problemBoard?problemId=" + problemId + "&postId=" + postId;
+    }
 
 }

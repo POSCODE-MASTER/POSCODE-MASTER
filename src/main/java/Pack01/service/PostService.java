@@ -29,12 +29,26 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public void update(Post post, Long post_id){
-        postRepository.update(post, post_id);
+    public Post findByPostId(Long postId) {
+        return postRepository.findByPostId(postId);
     }
 
-    public void delete(Long post_id){
-        postRepository.delete(post_id);
+    public void update(Long LoginUserId, PostForm postForm, Long post_id){
+        //본인 검증 추가
+        Post findPost = postRepository.findByPostId(post_id);
+        if (LoginUserId == findPost.getUser_id()) {
+            Post post = new Post(postForm.getTitle(), postForm.getContent());
+
+            postRepository.update(post, post_id);
+        }
+    }
+
+    public void delete(Long LoginUserId, Long post_id){
+        //본인 검증 추가
+        Post findPost = postRepository.findByPostId(post_id);
+        if (LoginUserId == findPost.getUser_id()) {
+            postRepository.delete(post_id);
+        }
     }
 
     public List<PostAndUserName> findByProblemId(Long problem_id){

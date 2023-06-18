@@ -100,6 +100,11 @@
         .post-table {
             background-color: #f9f9f9;
         }
+        .edit-link, .delete-link {
+            font-size: 12px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -123,17 +128,25 @@
             </tr>
             </tbody>
         </table>
+        <div>
+            <a href="/editPost?postId=${param.postId}&problemId=${post.problem_id}" class="edit-link">게시글 수정</a>
+            <a href="/deletePost?postId=${param.postId}&problemId=${post.problem_id}" class="delete-link">게시글 삭제</a>
+        </div>
         <div class="board-comment-container">
             <p class="comment-heading">댓글</p>
             <c:forEach items="${commentList}" var="comment">
                 <table class="board-comment-box">
                     <thead><th class="board-comment-head">${comment.name}</th></thead>
-                    <tbody><td class="board-comment-body">${comment.comment}</td></tbody>
+                    <tbody>
+                        <td class="board-comment-body">${comment.comment}
+                            <a href="/deleteComment?postId=${param.postId}&problemId=${post.problem_id}&commentId=${comment.postCommentId}" class="edit-link">댓글 삭제</a>
+                        </td>
+                    </tbody>
                 </table>
             </c:forEach>
         </div>
         <div class="input-wrapper">
-            <form action="/submitComment?postId=${param.postId}" method="post">
+            <form action="/submitComment?postId=${param.postId}&problemId=${post.problem_id}" method="post">
                 <input type="text" name="comment" placeholder="Enter your text">
                 <button type="submit">작성</button>
             </form>

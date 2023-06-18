@@ -1,8 +1,10 @@
 package Pack01.repository;
 
 import Pack01.domain.Comment;
+import Pack01.domain.Post;
 import Pack01.repository.dto.CommentDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -67,5 +69,38 @@ public class CommentRepository {
     }
 
 
+    public Comment findById(Long commentId) {
+        String sql = "SELECT * FROM post_comment WHERE post_comment_id = ?";
+
+        RowMapper<Comment> rowMapper = getRowMapper();
+
+        List<Comment> comments = jdbcTemplate.query(sql, ps -> {
+            ps.setLong(1, commentId);
+        }, rowMapper);
+
+        //return jdbcTemplate.queryForObject(sql, rowMapper, postId);
+
+        return DataAccessUtils.singleResult(comments);
+    }
+
+    private static RowMapper<Comment> getRowMapper() {
+        RowMapper<Comment> rowMapper = (resultSet, rowNum) -> new Comment(
+                resultSet.getLong("post_comment_id"),
+                resultSet.getLong("post_id"),
+                resultSet.getLong("user_id"),
+                resultSet.getString("comment")
+        );
+        return rowMapper;
+    }
+
+    public void delete(Long commentId) {
+        String query = "DELETE FROM post_comment WHERE post_comment_id = ?";
+        jdbcTemplate.update(
+                query,
+                commentId
+        );
+
+        System.out.println("Post 수정 성공");
+    }
 
 }

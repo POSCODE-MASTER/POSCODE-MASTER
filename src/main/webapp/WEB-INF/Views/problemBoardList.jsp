@@ -57,8 +57,8 @@
     }
   </style>
   <script>
-    function toBoard(postId){
-      var url = '/problemBoard?postId=' + postId;
+    function toBoard(problemId, postId) {
+      var url = '/problemBoard?problemId=' + problemId + '&postId=' + postId;
       window.location.href = url;
       console.log(url);
     }
@@ -82,13 +82,13 @@
       </tr>
       </thead>
       <tbody>
-        <c:forEach items="${problemBoardList}" var="board">
-              <tr onclick="toBoard(${board.postId})">
-                <td>${board.title}</td>
-                <td>${board.name}</td>
-                <td style="text-align: right;">${board.writtenDate}</td>
-              </tr>
-        </c:forEach>
+      <c:forEach items="${problemBoardList}" var="board">
+        <tr onclick="toBoard(${problemId}, ${board.postId})">
+          <td>${board.title}</td>
+          <td>${board.name}</td>
+          <td style="text-align: right;">${board.writtenDate}</td>
+        </tr>
+      </c:forEach>
       </tbody>
     </table>
   </div>
