@@ -1,34 +1,31 @@
 package Pack01.controller;
 
 import Pack01.domain.Comment;
-import Pack01.domain.Post;
+import Pack01.domain.User;
 import Pack01.repository.CommentRepository;
-import Pack01.repository.PostRepository;
-import Pack01.repository.ProblemRepository;
-import Pack01.service.ProblemService;
+import Pack01.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 @Controller
 public class CommentController {
 
-    private final CommentRepository commentRepository;
+    private final CommentService commentService;
 
     @Autowired
-    public CommentController(CommentRepository commentRepository) {
-        this.commentRepository = commentRepository;
+    public CommentController(CommentService commentService) {
+        this.commentService = commentService;
     }
 
-//    @GetMapping("/problemBoard")
-//    public String problemBoard(@RequestParam(name="postId") Long postId,
-//                               Model model){
-//        List<Comment> commentList = commentRepository.selectAllComment(postId);
-//        model.addAttribute("commentList", commentList);
-//        return "problemBoard";
-//    }
+
+    @PostMapping("/submitComment")
+    public String submitComment(@RequestParam Long postId, @SessionAttribute(name = "loginUser", required = false) User loginUser, @RequestParam("comment") String comment) {
+
+        Comment save = commentService.save(postId, loginUser.getUserId(), comment);
+
+        return "redirect:/problemBoard?postId=" + postId;
+    }
 }

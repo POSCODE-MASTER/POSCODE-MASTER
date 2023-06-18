@@ -24,7 +24,7 @@ public class CommentRepository {
 
     //comment 저장
     public Comment save(Comment comment){
-        String sql = "INSERT INTO problem(post_id, user_id, comment)" +
+        String sql = "INSERT INTO post_comment(post_id, user_id, comment)" +
                 "VALUES (?, ?, ?)";
 
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -42,22 +42,6 @@ public class CommentRepository {
         return comment;
     }
 
-    //comment 전체 조회
-    public List<Comment> selectAllComment(Long postId){
-        String sql = "SELECT * FROM post_comment WHERE post_id = ?";
-        return jdbcTemplate.query(sql, commentRowMapper(), postId);
-    }
-
-    private RowMapper<Comment> commentRowMapper() {
-        return (rs, rowNum) -> {
-            Comment comment = new Comment();
-            comment.setPostCommentId(rs.getLong("post_comment_id"));
-            comment.setPostId(rs.getLong("post_id"));
-            comment.setUserId(rs.getLong("user_id"));
-            comment.setComment(rs.getString("comment"));
-            return comment;
-        };
-    }
 
 
     //postId로 comment정보, user의 name 조회
@@ -73,7 +57,8 @@ public class CommentRepository {
                     resultSet.getLong("post_comment_id"),
                     resultSet.getLong("post_id"),
                     resultSet.getLong("user_id"),
-                    resultSet.getString("comment")
+                    resultSet.getString("comment"),
+                    resultSet.getString("name")
             );
             return commentDto;
         };

@@ -10,11 +10,14 @@ public class CommentDto {
 
     private String comment;
 
-    public CommentDto(Long postCommentId, Long postId, Long userId, String comment) {
+    private String name;
+
+    public CommentDto(Long postCommentId, Long postId, Long userId, String comment, String name) {
         this.postCommentId = postCommentId;
         this.postId = postId;
         this.userId = userId;
         this.comment = comment;
+        this.name = name;
     }
 
     public Long getPostCommentId() {
@@ -47,5 +50,13 @@ public class CommentDto {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

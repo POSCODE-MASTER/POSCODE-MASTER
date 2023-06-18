@@ -81,6 +81,6 @@ public class TestcaseController {
             testCaseService.save(testcase);
         }
 
-        return "problemList";
+        return "redirect:/problemList?page=1&level=";
     }
 }

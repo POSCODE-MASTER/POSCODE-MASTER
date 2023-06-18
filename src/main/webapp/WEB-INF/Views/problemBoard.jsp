@@ -55,10 +55,17 @@
             box-sizing: border-box;
             margin-top:10px;
         }
-        .board-comment-container{
+        .board-comment-container {
             display: flex;
             flex-direction: column;
-            margin-top:20px;
+            margin-top: 20px;
+            border-top: 1px solid lightgray;
+            padding-top: 10px;
+        }
+        .comment-heading {
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 10px;
         }
         .input-wrapper {
             display: flex;
@@ -66,15 +73,22 @@
             border: 2px solid #ccc;
             border-radius: 5px;
             padding: 10px;
+            box-sizing: border-box;
         }
+
+        .input-wrapper form {
+            display: flex;
+            flex: 1;
+        }
+
         .input-wrapper input {
             flex: 1;
             border: none;
             outline: none;
             padding: 5px;
         }
+
         .input-wrapper button {
-            margin-left: 10px;
             border: none;
             outline: none;
             background-color: #0066ff;
@@ -110,16 +124,19 @@
             </tbody>
         </table>
         <div class="board-comment-container">
+            <p class="comment-heading">댓글</p>
             <c:forEach items="${commentList}" var="comment">
                 <table class="board-comment-box">
-                    <thead><th class="board-comment-head">${comment.userId}</th></thead>
+                    <thead><th class="board-comment-head">${comment.name}</th></thead>
                     <tbody><td class="board-comment-body">${comment.comment}</td></tbody>
                 </table>
             </c:forEach>
         </div>
         <div class="input-wrapper">
-            <input type="text" placeholder="Enter your text">
-            <button>작성</button>
+            <form action="/submitComment?postId=${param.postId}" method="post">
+                <input type="text" name="comment" placeholder="Enter your text">
+                <button type="submit">작성</button>
+            </form>
         </div>
     </div>
 </div>

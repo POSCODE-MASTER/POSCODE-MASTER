@@ -15,6 +15,12 @@ public class Comment {
         this.comment = comment;
     }
 
+    public Comment(Long postId, Long userId, String comment) {
+        this.postId = postId;
+        this.userId = userId;
+        this.comment = comment;
+    }
+
     public Long getPostCommentId(){return postCommentId;}
     public void setPostCommentId(Long commentId){this.postCommentId = postCommentId;}
 
