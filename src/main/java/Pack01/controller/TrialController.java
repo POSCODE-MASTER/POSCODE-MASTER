@@ -142,6 +142,16 @@ public class TrialController {
         model.addAttribute("exampleOutput",output);
         model.addAttribute("testcaseNum",testcases.size());
 
+        String defaultCode = "import java.util.Scanner;\n" +
+                "\n" +
+                "public class  ProbelmSolving{\n" +
+                "public static void main (String args[]) {\n" +
+                "      Scanner sc = new Scanner(System.in);\n" +
+                "   }\n" +
+                "}";
+
+        model.addAttribute("triedCode",defaultCode);
+
         return "solve";
     }
 
@@ -165,6 +175,9 @@ public class TrialController {
 
         String code = trialService.findCodeByUserIdProblemIdSolveTime(trialId);
         model.addAttribute("triedCode",code);
+
+
+
 
         return "solve";
     }
