@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.time.format.DateTimeFormatter" %><%--
   Created by IntelliJ IDEA.
   User: FastPc
   Date: 2023-06-18
@@ -90,6 +90,12 @@
         tr:hover {
             background-color: #e2e2e2;
         }
+        .solved {
+            color: #0066ff;
+        }
+        .not-solved {
+            color: #f80231;
+        }
     </style>
 </head>
 <body>
@@ -118,11 +124,23 @@
                 <tr>
                     <th>문제 풀이 시각</th>
                     <th>결과</th>
+                    <th>코드 보러가기</th>
                 </tr>
                 <c:forEach items="${problemLogs}" var="problemLog">
                     <tr>
-                        <td>${problemLog.getSolveTime()}</td>
-                        <td>${problemLog.getResult()}</td>
+                        <td>${DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(problemLog.getSolveTime())}</td>
+                        <td><c:choose>
+                            <c:when test="${problemLog.getResult() eq 'SOLVED'}">
+                                <span class="solved">${problemLog.getResult()}</span>
+                            </c:when>
+                            <c:when test="${problemLog.getResult() eq 'NOT SOLVED'}">
+                                <span class="not-solved">${problemLog.getResult()}</span>
+                            </c:when>
+                            <c:otherwise>${problemLog.getResult()}</c:otherwise>
+                        </c:choose></td>
+                        <td>
+                            <a href="solveRetry?problemId=${problem.getProblemId()}&trialId=${problemLog.getTrialId()}">코드 확인하러 가기</a>
+                        </td>
                     </tr>
                 </c:forEach>
 

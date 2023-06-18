@@ -3,18 +3,19 @@ package Pack01.repository.dto;
 import java.time.LocalDateTime;
 
 public class UserTrialDto {
-    private String code;
     private LocalDateTime solveTime;
     private String result;
 
-    public UserTrialDto(String code, LocalDateTime solveTime, String result) {
-        this.code = code;
+    private Long trialId;
+
+    public UserTrialDto(LocalDateTime solveTime, String result, Long trialId) {
         this.solveTime = solveTime;
         this.result = result;
+        this.trialId = trialId;
     }
 
-    public String getCode() {
-        return code;
+    public Long getTrialId() {
+        return trialId;
     }
 
     public LocalDateTime getSolveTime() {

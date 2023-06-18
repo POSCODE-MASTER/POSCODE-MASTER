@@ -4,6 +4,7 @@ import JDoole.JDoodle;
 import Pack01.domain.Problem;
 import Pack01.domain.Testcase;
 import Pack01.domain.Trial;
+import Pack01.domain.User;
 import Pack01.service.ProblemService;
 import Pack01.service.TestCaseService;
 import Pack01.service.TrialService;
@@ -15,10 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -147,5 +145,28 @@ public class TrialController {
         return "solve";
     }
 
+    @GetMapping("solveRetry")
+    public String solveRetryPage(
+            @RequestParam(name="problemId") Long problemId,
+            @RequestParam(name="trialId") Long trialId,
+            Model model){
+        Problem problem = problemService.findProblemByProblemId(problemId);
+        model.addAttribute("problem", problem);
+
+        List<Testcase> testcases = testCaseService.findByProblemId(problemId);
+        JsonParser parser = new JsonParser();
+        JsonObject input = (JsonObject)parser.parse(testcases.get(0).getInput());
+        JsonObject output = (JsonObject)parser.parse(testcases.get(0).getOutput());
+
+        model.addAttribute("exampleInput",input);
+        model.addAttribute("exampleOutput",output);
+        model.addAttribute("testcaseNum",testcases.size());
+
+
+        String code = trialService.findCodeByUserIdProblemIdSolveTime(trialId);
+        model.addAttribute("triedCode",code);
+
+        return "solve";
+    }
 
 }

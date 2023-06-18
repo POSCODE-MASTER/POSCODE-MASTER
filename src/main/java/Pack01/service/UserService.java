@@ -37,7 +37,11 @@ public class UserService {
 
     // 회원가입
     public void save(User user) {
-        userRepository.save(user);
+        Optional<User> userOptional = userRepository.findById(user.getId());
+
+        if (!userOptional.isPresent()) {
+            userRepository.save(user);
+        }
     }
 
     // userId로 조회

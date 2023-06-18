@@ -85,9 +85,10 @@ public class UserRepository {
         try {
             return jdbcTemplate.queryForObject(sql, userRowMapper(), userId);
         } catch (EmptyResultDataAccessException e) {
-            return null;
+            return new User();
         }
     }
+
 
 
     // 내가 맞은 문제 리스트
@@ -178,13 +179,13 @@ public class UserRepository {
 
     //유저가 해당 문제를 푼 기록들(로그)
     public List findUserProblemSolveLog(Long userId, Long problemId){
-        String query = "select A.code as code ,A.solve_time as solveTime,\n" +
+        String query = "select A.trial_id as trial_id, A.solve_time as solveTime,\n" +
                 "CASE \n" +
                 "WHEN A.correct_count = B.total_testcase THEN 'SOLVED'\n" +
                 " WHEN A.correct_count != B.total_testcase THEN 'NOT SOLVED'\n" +
                 " END as result\n" +
                 "from (\n" +
-                "select problem_id, solve_time, tr.code,count(*) as correct_count\n" +
+                "select problem_id, solve_time, tr.code,count(*) as correct_count, MAX(tr.trial_id) as trial_id\n" +
                 "from testcase as te, trial as tr\n" +
                 "where te.testcase_id = tr.testcase_id\n" +
                 "and tr.user_id = ?\n" +
@@ -219,10 +220,10 @@ public class UserRepository {
 
     private UserTrialDto mapUserTrialDto(ResultSet rs) throws SQLException {
         UserTrialDto userTrialDto = new UserTrialDto(
-                rs.getString("code"),
                 rs.getObject("solveTime", LocalDateTime.class),
-                rs.getString("result")
-        );
+                rs.getString("result"),
+                rs.getLong("trial_id")
+                );
         return userTrialDto;
     }
 

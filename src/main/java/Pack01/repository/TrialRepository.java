@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.sql.PreparedStatement;
+import java.time.LocalDateTime;
 
 @Repository
 public class TrialRepository {
@@ -17,6 +18,16 @@ public class TrialRepository {
     @Autowired
     public TrialRepository(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+    }
+
+    public String findCodeByUserIdProblemIdSolveTime(Long trialId){
+        String query = "SELECT code " +
+                "FROM trial " +
+                "where trial_id = ? ";
+
+
+        return jdbcTemplate.queryForObject(query, new Object[]{trialId}, String.class);
+
     }
 
     //저장
