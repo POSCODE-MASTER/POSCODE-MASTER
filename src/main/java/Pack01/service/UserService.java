@@ -2,6 +2,7 @@ package Pack01.service;
 
 import Pack01.domain.User;
 import Pack01.repository.dto.SolvedProblemDto;
+import Pack01.repository.dto.UserTrialDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import Pack01.repository.UserRepository;
@@ -50,6 +51,20 @@ public class UserService {
         return userRepository.selectSolvedProblem(userId);
     }
 
+    public List<SolvedProblemDto> selectNotSolvedProblem(Long userId){
+        return userRepository.selectNotSolvedProblem(userId);
+    }
+    public List<UserTrialDto> findUserProblemSolveLog(Long userId, Long problemId){
+        return userRepository.findUserProblemSolveLog(userId,problemId);
+    }
+
+    public Integer findSolvedUserNumByProblemId(Long problemId){
+        return userRepository.findSolvedUserNumByProblemId(problemId);
+    }
+
+    public Integer findTriedUserNumByProblemId(Long problemId){
+        return userRepository.findTriedUserNumByProblemId(problemId);
+    }
 
 
     // 유저 랭킹

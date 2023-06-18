@@ -3,6 +3,7 @@ package Pack01.repository;
 import Pack01.domain.User;
 import Pack01.repository.dto.ProblemHistoryDto;
 import Pack01.repository.dto.SolvedProblemDto;
+import Pack01.repository.dto.UserTrialDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -92,7 +93,7 @@ public class UserRepository {
     // 내가 맞은 문제 리스트
     public List<SolvedProblemDto> selectSolvedProblem(Long userId){
         String query =
-                "SELECT problem.*, correct_count.user_id AS solver, correct_count.solve_time " +
+                "SELECT DISTINCT problem.*, correct_count.user_id AS solver " +
                 "FROM (SELECT problem_id, solve_time, user_id, COUNT(*) AS correct_count " +
                 "      FROM testcase AS te, trial AS tr " +
                 "      WHERE te.testcase_id = tr.testcase_id " +
@@ -111,6 +112,98 @@ public class UserRepository {
         return jdbcTemplate.query(query, new Object[]{userId}, (rs, rowNum) -> mapProblemDTO(rs));
     }
 
+
+    //내가 시도했지만 맞추지 못한 문제
+    public List<SolvedProblemDto> selectNotSolvedProblem(long userId){
+        String query = "select DISTINCT p.*, u.user_id as solver\n" +
+                "FROM problem as p,\n" +
+                "    testcase as te,\n" +
+                "    trial as tr, \n" +
+                "     user as u\n" +
+                "WHERE p.problem_id = te.problem_id\n" +
+                "AND te.testcase_id = tr.testcase_id\n" +
+                "AND tr.user_id = u.user_id\n" +
+                "AND u.user_id = ?\n" +
+                "AND p.problem_id NOT IN(\n" +
+                "select DISTINCT problem.problem_id\n" +
+                "from (\n" +
+                "select problem_id, solve_time, count(*) as correct_count\n" +
+                "from testcase as te, trial as tr\n" +
+                "where te.testcase_id = tr.testcase_id\n" +
+                "and tr.user_id = ?\n" +
+                "and tr.is_solved = 1\n" +
+                "group by problem_id, solve_time) as correct_count,\n" +
+                "(select p.problem_id, count(*) total_testcase \n" +
+                "from problem p, testcase te \n" +
+                "where p.problem_id = te.problem_id\n" +
+                " group by p.problem_id) as total_testcase,\n" +
+                "problem \n" +
+                "where correct_count.correct_count = total_testcase\n" +
+                "and correct_count.problem_id = total_testcase.problem_id\n" +
+                "and correct_count.problem_id = problem.problem_id\n" +
+                "and total_testcase.problem_id = problem.problem_id\n" +
+                ")";
+
+        return jdbcTemplate.query(query, new Object[]{userId, userId}, (rs, rowNum) -> mapProblemDTO(rs));
+    }
+
+    public Integer findSolvedUserNumByProblemId(Long problemId){
+        String query = "select count(DISTINCT correct_count.user_id) as correctUser\n" +
+                "from (\n" +
+                "select problem_id, user_id, solve_time, count(*) as correct_count\n" +
+                "from testcase as te, trial as tr\n" +
+                "where te.testcase_id = tr.testcase_id\n" +
+                "and tr.is_solved = 1\n" +
+                "and te.problem_id = ?\n" +
+                "group by problem_id, user_id, solve_time) as correct_count,\n" +
+                "(select p.problem_id, count(*) total_testcase \n" +
+                "from problem p, testcase te \n" +
+                "where p.problem_id = te.problem_id\n" +
+                "and p.problem_id = ?\n" +
+                "group by p.problem_id\n" +
+                ") as total_testcase";
+
+        return jdbcTemplate.queryForObject(query, new Object[]{problemId, problemId}, Integer.class);
+
+    }
+
+    public Integer findTriedUserNumByProblemId(Long problemId){
+        String query = "select COUNT(distinct user_id) as triedUser from testcase, trial\n" +
+                "where problem_id = ?\n" +
+                "and testcase.testcase_id = trial.testcase_id";
+
+        return jdbcTemplate.queryForObject(query, new Object[]{problemId}, Integer.class);
+
+    }
+
+    //유저가 해당 문제를 푼 기록들(로그)
+    public List findUserProblemSolveLog(Long userId, Long problemId){
+        String query = "select A.code as code ,A.solve_time as solveTime,\n" +
+                "CASE \n" +
+                "WHEN A.correct_count = B.total_testcase THEN 'SOLVED'\n" +
+                " WHEN A.correct_count != B.total_testcase THEN 'NOT SOLVED'\n" +
+                " END as result\n" +
+                "from (\n" +
+                "select problem_id, solve_time, tr.code,count(*) as correct_count\n" +
+                "from testcase as te, trial as tr\n" +
+                "where te.testcase_id = tr.testcase_id\n" +
+                "and tr.user_id = ?\n" +
+                "and tr.is_solved = 1\n" +
+                "and te.problem_id = ?\n" +
+                "group by problem_id, solve_time, tr.code) as A,\n" +
+                "(select p.problem_id, count(*) total_testcase \n" +
+                "from problem p, testcase te \n" +
+                "where p.problem_id = te.problem_id\n" +
+                " group by p.problem_id) as B,\n" +
+                "problem \n" +
+                "where A.problem_id = B.problem_id\n" +
+                "and A.problem_id = problem.problem_id\n" +
+                "and B.problem_id = problem.problem_id order by solveTime desc;\n";
+        return jdbcTemplate.query(query, new Object[]{userId, problemId}, (rs, rowNum) -> mapUserTrialDto(rs));
+    }
+
+
+
     private SolvedProblemDto mapProblemDTO(ResultSet rs) throws SQLException {
         SolvedProblemDto problemDTO = new SolvedProblemDto();
         problemDTO.setProblemId(rs.getLong("problem_id"));
@@ -121,16 +214,21 @@ public class UserRepository {
         problemDTO.setUpdateDate(rs.getObject("update_date", LocalDateTime.class));
         problemDTO.setLevel(rs.getInt("level"));
         problemDTO.setSolver(rs.getLong("solver"));
-        problemDTO.setSolveTime(rs.getObject("solve_time", LocalDateTime.class));
         return problemDTO;
+    }
+
+    private UserTrialDto mapUserTrialDto(ResultSet rs) throws SQLException {
+        UserTrialDto userTrialDto = new UserTrialDto(
+                rs.getString("code"),
+                rs.getObject("solveTime", LocalDateTime.class),
+                rs.getString("result")
+        );
+        return userTrialDto;
     }
 
 
 
-    //문제 푼 기록 (푼 문제, 풀지 못한 문제 리스트)
-//    public List<ProblemHistoryDto> selectProblemHistory(Long userId) {
-//        String sql = ""
-//    }
+
 
 
 

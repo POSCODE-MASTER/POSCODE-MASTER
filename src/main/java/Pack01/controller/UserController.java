@@ -1,9 +1,12 @@
 package Pack01.controller;
 
 import Pack01.controller.form.LoginForm;
+import Pack01.domain.Problem;
 import Pack01.domain.User;
 import Pack01.domain.UserRanking;
 import Pack01.repository.dto.SolvedProblemDto;
+import Pack01.repository.dto.UserTrialDto;
+import Pack01.service.ProblemService;
 import Pack01.service.UserRankingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,10 +24,13 @@ public class UserController {
     private final UserService userService;
     private final UserRankingService userRankingService;
 
+    private final ProblemService problemService;
+
     @Autowired
-    public UserController(UserService userService, UserRankingService userRankingService) {
+    public UserController(UserService userService, UserRankingService userRankingService, ProblemService problemService) {
         this.userService = userService;
         this.userRankingService = userRankingService;
+        this.problemService = problemService;
     }
 
     /**
@@ -109,10 +115,34 @@ public class UserController {
         List<SolvedProblemDto> solvedProblem = userService.selectSolvedProblem(loginUser.getUserId());
         model.addAttribute("solvedProblems", solvedProblem);
 
+        List<SolvedProblemDto> notSolvedProblem = userService.selectNotSolvedProblem(loginUser.getUserId());
+        model.addAttribute("notSolvedProblems", notSolvedProblem);
+
         UserRanking userRanking = userRankingService.findUserRankingById(loginUser.getUserId());
         model.addAttribute("userRanking",userRanking);
 
         return "myPage";
+    }
+
+    @GetMapping("/problemSolvedLog")
+    public String problemSolvedLog(
+            @SessionAttribute(name = "loginUser", required = true) User loginUser,
+            @RequestParam(name="problemId") Long problemId,
+            Model model){
+
+        User user = userService.findByUserId(loginUser.getUserId());
+        model.addAttribute("user", user);
+
+        List<UserTrialDto> userTrialDtoList = userService.findUserProblemSolveLog(user.getUserId(), problemId);
+        model.addAttribute("problemLogs",userTrialDtoList);
+
+        Problem problem = problemService.findProblemByProblemId(problemId);
+
+        model.addAttribute("problem", problem);
+        model.addAttribute("solvedUserNum", userService.findSolvedUserNumByProblemId(problemId));
+        model.addAttribute("triedUserNum",userService.findTriedUserNumByProblemId(problemId));
+
+        return "problemLog";
     }
 
     @GetMapping("/header")
